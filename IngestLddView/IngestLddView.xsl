@@ -63,7 +63,9 @@
       -->
       <xsl:if test="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]">
         <h3>Rules:</h3>
-        <xsl:apply-templates select="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]"/>
+        <ul>
+          <xsl:apply-templates select="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]"/>
+        </ul>
       </xsl:if>
     </div>
   </xsl:template>
@@ -166,7 +168,9 @@
       -->
       <xsl:if test="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]">
         <h4>Rules:</h4>
-        <xsl:apply-templates select="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]"/>
+        <ul>
+          <xsl:apply-templates select="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]"/>
+        </ul>
       </xsl:if>
 
     </div>
@@ -238,6 +242,6 @@
   </xsl:template>
 
   <xsl:template match="p:DD_Rule_Statement">
-    <div><xsl:value-of select="p:rule_message"/></div>
+    <li><xsl:value-of select="p:rule_message"/></li>
   </xsl:template>
 </xsl:stylesheet>
