@@ -64,7 +64,27 @@
     <xsl:param name="parent"/>
     <xsl:variable name="local_identifier"><xsl:value-of select="p:local_identifier"/></xsl:variable>
     <div>
-      <h4><xsl:value-of select="p:local_identifier"/><xsl:if test='p:minimum_occurrences'> (<xsl:value-of select="p:minimum_occurrences"/>-<xsl:value-of select="p:maximum_occurrences"/>)</xsl:if></h4>
+      <h4>
+        <xsl:value-of select="p:local_identifier"/>
+        <xsl:if test="p:minimum_occurrences or p:maximum_occurrences">
+          (<xsl:if test="p:minimum_occurrences">
+              <xsl:choose>
+                <xsl:when test="p:minimum_occurrences='0'">Optional</xsl:when>
+                <xsl:when test="p:minimum_occurrences='1'">Required</xsl:when>
+                <xsl:otherwise>Required <xsl:value-of select="p:minimum_occurrences"/> times</xsl:otherwise>
+              </xsl:choose>
+          </xsl:if>
+          <xsl:if test="p:minimum_occurrences or p:maximum_occurrences">, </xsl:if>
+          <xsl:if test="p:maximum_occurrences">
+              <xsl:choose>
+                  <xsl:when test="p:maximum_occurrences='1'">Not repeatable</xsl:when>
+                  <xsl:when test="p:maximum_occurrences='*'">Repeatable</xsl:when>
+                  <xsl:when test="p:maximum_occurrences='unbounded'">Repeatable</xsl:when>
+                  <xsl:otherwise>Repeatable <xsl:value-of select="p:maximum_occurrences"/> times</xsl:otherwise>
+              </xsl:choose>
+          </xsl:if>)
+        </xsl:if>
+      </h4>
       <xsl:choose>
         <xsl:when test="p:reference_type='attribute_of'">
           <xsl:apply-templates select="//p:DD_Attribute[p:local_identifier=$local_identifier]">
