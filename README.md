@@ -12,6 +12,10 @@ IngestLddView can be invoked with the following command
 
 `xsltproc IngestLddView.xsl [ingest ldd file] > [htmlfile]`
 
+or 
+
+`saxon -xsl:IngestLddView.xsl -s:[ingest ldd file] -o:[htmlfile]`
+
 ### Known issues:
 Need to add support for xs:any
 The output is not exactly attractive. Need to format it for easier comprehension.
