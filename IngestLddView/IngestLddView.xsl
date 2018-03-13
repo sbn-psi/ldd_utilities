@@ -103,11 +103,12 @@
   <xsl:template match="p:DD_Association[p:local_identifier='XSChoice#']">
     <xsl:param name="parent"/>
 
-    <h4><xsl:value-of select="p:minimum_occurrences"/>-<xsl:value-of select="p:maximum_occurrences"/> of the following:</h4>
+    <h4><xsl:value-of select="p:minimum_occurrences"/>
+      <xsl:if test="not(p:minimum_occurrences = p:maximum_occurrences)">-<xsl:value-of select="p:maximum_occurrences"/></xsl:if>
+    of the following:</h4>
     <div class='choice'>
       <xsl:for-each select="p:local_identifier[not(.='XSChoice#')]">
         <xsl:variable name="local_identifier"><xsl:value-of select="."/></xsl:variable>
-
         <div>
           <h4><xsl:value-of select="."/></h4>
           <xsl:choose>
@@ -125,7 +126,7 @@
         </div>
       </xsl:for-each>
     </div>
-   </xsl:template>
+  </xsl:template>
 
   <xsl:template match="p:DD_Attribute">
     <xsl:param name="parent"/>
