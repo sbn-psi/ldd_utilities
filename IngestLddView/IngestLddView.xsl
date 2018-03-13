@@ -3,7 +3,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:p="http://pds.nasa.gov/pds4/pds/v1"
 >
-  <xsl:param name="ns"/>
+  <xsl:param name="ns"><xsl:value-of select="/p:Ingest_LDD/p:namespace_id"/></xsl:param>
   <xsl:template match="/">
     <html>
       <head>
