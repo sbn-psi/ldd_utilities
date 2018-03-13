@@ -69,6 +69,10 @@
   </xsl:template>
 
 
+  <!--
+    Associations are the relationships between classes and child classes and attributes.
+    This is where the cardinality information is maintained as well.
+  -->
   <xsl:template match="p:DD_Association">
     <xsl:param name="parent"/>
     <xsl:variable name="local_identifier"><xsl:value-of select="p:local_identifier"/></xsl:variable>
@@ -96,11 +100,13 @@
         </xsl:if>
       </h4>
       <xsl:choose>
+        <!-- If the association is an attribute_of association, we should look for attributes with the same name as the association -->
         <xsl:when test="p:reference_type='attribute_of'">
           <xsl:apply-templates select="//p:DD_Attribute[p:local_identifier=$local_identifier]">
             <xsl:with-param name="parent"><xsl:value-of select="$parent"/></xsl:with-param>
           </xsl:apply-templates>
         </xsl:when>
+        <!-- If the association is an component_of association, we should look for classes with the same name as the association -->
         <xsl:when test="p:reference_type='component_of'">
           <xsl:apply-templates select="//p:DD_Class[p:local_identifier=$local_identifier]">
             <xsl:with-param name="parent"><xsl:value-of select="$parent"/></xsl:with-param>
