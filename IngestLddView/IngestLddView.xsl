@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:p="http://pds.nasa.gov/pds4/pds/v1"
-  exclude-result-prefixes="p"  
+  exclude-result-prefixes="p"
 >
   <xsl:output method="html" encoding="utf-8"/>
   <xsl:param name="ns"><xsl:value-of select="/p:Ingest_LDD/p:namespace_id"/></xsl:param>
@@ -149,7 +149,9 @@
   <xsl:template match="p:DD_Value_Domain[p:DD_Permissible_Value]">
     <xsl:param name="parent"/>
     <div>Values:</div>
-    <xsl:apply-templates select="p:DD_Permissible_Value"/>
+    <ul>
+      <xsl:apply-templates select="p:DD_Permissible_Value"/>
+    </ul>
   </xsl:template>
 
   <xsl:template match="p:DD_Permissible_Value">
@@ -161,7 +163,7 @@
     Non-enumerated.
     <xsl:if test="p:formation_rule">
       <div>
-        Pattern: <xsl:value-of select="p:formation_rule"/>
+        Formation rule: <xsl:value-of select="p:formation_rule"/>
       </div>
     </xsl:if>
     <xsl:if test="p:pattern">
@@ -181,12 +183,12 @@
     </xsl:if>
     <xsl:if test="p:minimum_value">
       <div>
-        Min: <xsl:value-of select="p:minimum_value"/> <xsl:value-of select="p:specified_unit_id"/>
+        Min: <xsl:value-of select="p:minimum_value"/> (<xsl:value-of select="p:specified_unit_id"/>)
       </div>
     </xsl:if>
     <xsl:if test="p:maximum_value">
       <div>
-        Max: <xsl:value-of select="p:maximum_value"/> <xsl:value-of select="p:specified_unit_id"/>
+        Max: <xsl:value-of select="p:maximum_value"/> (<xsl:value-of select="p:specified_unit_id"/>)
       </div>
     </xsl:if>
     <xsl:if test="p:minimum_characters">
