@@ -180,7 +180,7 @@
   <!-- Attributes that have an enumerated value list should show the list -->
   <xsl:template match="p:DD_Value_Domain[p:DD_Permissible_Value]">
     <xsl:param name="parent"/>
-    <div>Values:</div>
+    <h4>Values:</h4>
     <ul>
       <xsl:apply-templates select="p:DD_Permissible_Value"/>
     </ul>
