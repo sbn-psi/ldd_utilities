@@ -38,8 +38,12 @@
   </xsl:template>
 
 
+  <!--
+    Template for DD_Class. This describes the elements in the schema.
+  -->
   <xsl:template match="p:DD_Class">
     <xsl:param name="parent"/>
+    <!-- The xpath to this element is based on the path of the parent element. -->
     <xsl:variable name="path"><xsl:value-of select="$parent"/><xsl:value-of select="$ns"/>:<xsl:value-of select="p:name"/></xsl:variable>
 
     <div class="class">
@@ -52,6 +56,11 @@
         <xsl:with-param name="parent"><xsl:value-of select="$path"/>/</xsl:with-param>
       </xsl:apply-templates>
 
+      <!--
+           XPath to find all DD_Rules that will apply to this element at this location.
+           The matching rules are all of the ones where the current path ends with the rule context.
+           We are reduced to using substring comparisons since ends-with is an XSLT 2.0 feature.
+      -->
       <xsl:if test="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]">
         <h3>Rules:</h3>
         <xsl:apply-templates select="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]"/>
@@ -66,6 +75,7 @@
     <div>
       <h4>
         <xsl:value-of select="p:local_identifier"/>
+        <!-- Translates the cardinality to English -->
         <xsl:if test="p:minimum_occurrences or p:maximum_occurrences">
           (<xsl:if test="p:minimum_occurrences">
               <xsl:choose>
@@ -100,6 +110,9 @@
     </div>
   </xsl:template>
 
+  <!-- XS choice is a magic keyword in the association list. This will find
+       associations that contain xs choice and handle them differently.
+  -->
   <xsl:template match="p:DD_Association[p:local_identifier='XSChoice#']">
     <xsl:param name="parent"/>
 
@@ -128,8 +141,10 @@
     </div>
   </xsl:template>
 
+  <!-- Constructs a description of an attribute in the schema -->
   <xsl:template match="p:DD_Attribute">
     <xsl:param name="parent"/>
+    <!-- The xpath to this element is based on the path of the parent element. -->
     <xsl:variable name="path"><xsl:value-of select="$parent"/><xsl:value-of select="$ns"/>:<xsl:value-of select="p:name"/></xsl:variable>
 
     <div class="attribute">
@@ -138,6 +153,11 @@
       <xsl:value-of select="p:definition"/>
       <xsl:apply-templates select="p:DD_Value_Domain"/>
 
+      <!--
+           XPath to find all DD_Rules that will apply to this attributes at this location.
+           The matching rules are all of the ones where the current path ends with the rule context.
+           We are reduced to using substring comparisons since ends-with is an XSLT 2.0 feature.
+      -->
       <xsl:if test="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]">
         <h4>Rules:</h4>
         <xsl:apply-templates select="//p:DD_Rule[substring($path, string-length($path) - string-length(p:rule_context) +1) = p:rule_context]"/>
@@ -147,6 +167,7 @@
 
   </xsl:template>
 
+  <!-- Attributes that have an enumerated value list should show the list -->
   <xsl:template match="p:DD_Value_Domain[p:DD_Permissible_Value]">
     <xsl:param name="parent"/>
     <div>Values:</div>
@@ -160,6 +181,8 @@
   </xsl:template>
 
 
+  <!-- Attributes that do not have an enumerated value list should show the
+      formation rules, min/max, units, etc. -->
   <xsl:template match="p:DD_Value_Domain">
     Non-enumerated.
     <xsl:if test="p:formation_rule">
