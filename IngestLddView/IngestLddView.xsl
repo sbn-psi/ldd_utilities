@@ -2,7 +2,9 @@
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:p="http://pds.nasa.gov/pds4/pds/v1"
+  exclude-result-prefixes="p"  
 >
+  <xsl:output method="html" encoding="utf-8"/>
   <xsl:param name="ns"><xsl:value-of select="/p:Ingest_LDD/p:namespace_id"/></xsl:param>
   <xsl:template match="/">
     <html>
@@ -10,8 +12,6 @@
         <style>
           h1 {font-size:125%; font-weight:bold; margin:0px; background-color:lightgray}
           ul {margin:0px;}
-          div.type {border:thin black solid;}
-          div.enumValues {font-style: italic}
           div.doc {font-style: italic}
           div.attribute {border: thin black solid; margin:10px; padding:10px}
           div.class {border: thin black solid; margin:10px; padding:10px}
