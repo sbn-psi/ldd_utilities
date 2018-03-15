@@ -24,11 +24,11 @@ A graphviz companion to IngestLddView is IngestLddDot. This will convert an Inge
 dot file, which can be used to quickly visualize the relationships between classes, as well as find problems
 such as orphaned classes, attributes or rules. IngestLDDDot is invoked the same way as IngestLDDView:
 
-`xsltproc IngestLddView.xsl [ingest ldd file] > [dotfile]`
+`xsltproc IngestLddDot.xsl [ingest ldd file] > [dotfile]`
 
 or
 
-`saxon -xsl:IngestLddView.xsl -s:[ingest ldd file] -o:[dotfile]`
+`saxon -xsl:IngestLddDot.xsl -s:[ingest ldd file] -o:[dotfile]`
 
 From there, your dot file can be converted to a graphical format.
 
