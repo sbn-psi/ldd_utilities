@@ -54,6 +54,8 @@
     in the graphviz file
   -->
   <xsl:template match="p:DD_Class" mode="relationships">
+    /* Associations from <xsl:value-of select="p:name"/> */
+ 
     <xsl:apply-templates select="p:DD_Association" mode="relationships">
       <xsl:with-param name="src-node" select="p:name"/>
     </xsl:apply-templates>
@@ -61,7 +63,7 @@
 
   <xsl:template match="p:DD_Association" mode="relationships">
     <xsl:param name="src-node"/>
-    <xsl:apply-templates select="p:local_identifier" mode="relationships">
+    <xsl:apply-templates select="p:local_identifier | p:identifier_reference" mode="relationships">
       <xsl:with-param name="src-node" select="$src-node"/>
     </xsl:apply-templates>
   </xsl:template>
@@ -73,7 +75,7 @@
     </xsl:apply-templates>
   </xsl:template>
 
-  <xsl:template match="p:local_identifier" mode="relationships">
+  <xsl:template match="p:local_identifier | p:identifier_reference" mode="relationships">
     <xsl:param name="src-node"/>
     <xsl:variable name="dest-node">
       <xsl:choose>

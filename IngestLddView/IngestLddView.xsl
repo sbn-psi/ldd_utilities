@@ -77,10 +77,12 @@
   -->
   <xsl:template match="p:DD_Association">
     <xsl:param name="parent"/>
-    <xsl:variable name="local_identifier"><xsl:value-of select="p:local_identifier"/></xsl:variable>
+    <xsl:variable name="local_identifier">
+      <xsl:value-of select="p:identifier_reference | p:local_identifier"/>
+    </xsl:variable>
     <div>
       <h4>
-        <xsl:value-of select="p:local_identifier"/>
+        <xsl:value-of select="$local_identifier"/>
         <!-- Translates the cardinality to English -->
         <xsl:if test="p:minimum_occurrences or p:maximum_occurrences">
           (<xsl:if test="p:minimum_occurrences">
