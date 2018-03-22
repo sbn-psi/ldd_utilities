@@ -84,24 +84,18 @@
       <h4>
         <xsl:value-of select="$local_identifier"/>
         <!-- Translates the cardinality to English -->
-        <xsl:if test="p:minimum_occurrences or p:maximum_occurrences">
-          (<xsl:if test="p:minimum_occurrences">
-              <xsl:choose>
-                <xsl:when test="p:minimum_occurrences='0'">Optional</xsl:when>
-                <xsl:when test="p:minimum_occurrences='1'">Required</xsl:when>
-                <xsl:otherwise>Required <xsl:value-of select="p:minimum_occurrences"/> times</xsl:otherwise>
-              </xsl:choose>
-          </xsl:if>
-          <xsl:if test="p:minimum_occurrences or p:maximum_occurrences">, </xsl:if>
-          <xsl:if test="p:maximum_occurrences">
-              <xsl:choose>
-                  <xsl:when test="p:maximum_occurrences='1'">Not repeatable</xsl:when>
-                  <xsl:when test="p:maximum_occurrences='*'">Repeatable</xsl:when>
-                  <xsl:when test="p:maximum_occurrences='unbounded'">Repeatable</xsl:when>
-                  <xsl:otherwise>Repeatable <xsl:value-of select="p:maximum_occurrences"/> times</xsl:otherwise>
-              </xsl:choose>
-          </xsl:if>)
-        </xsl:if>
+        (<xsl:choose>
+          <xsl:when test="p:minimum_occurrences='0'">Optional</xsl:when>
+          <xsl:when test="p:minimum_occurrences='1'">Required</xsl:when>
+          <xsl:otherwise>Required <xsl:value-of select="p:minimum_occurrences"/> times</xsl:otherwise>
+        </xsl:choose>
+        ,
+        <xsl:choose>
+            <xsl:when test="p:maximum_occurrences='1'">Not repeatable</xsl:when>
+            <xsl:when test="p:maximum_occurrences='*'">Repeatable</xsl:when>
+            <xsl:when test="p:maximum_occurrences='unbounded'">Repeatable</xsl:when>
+            <xsl:otherwise>Repeatable <xsl:value-of select="p:maximum_occurrences"/> times</xsl:otherwise>
+        </xsl:choose>)
       </h4>
       <xsl:choose>
         <!-- If the association is an attribute_of association, we should look for attributes with the same name as the association -->
