@@ -36,11 +36,11 @@
 
   <!-- These templates will define the nodes in the graphviz file -->
   <xsl:template match="p:DD_Class" mode="definitions" >
-    <xsl:value-of select="p:name"/> [shape=box];
+    <xsl:value-of select="translate(p:local_identifier, '.', '_')"/> [shape=box];
   </xsl:template>
 
   <xsl:template match="p:DD_Attribute" mode="definitions" >
-    <xsl:value-of select="p:name"/>;
+    <xsl:value-of select="translate(p:local_identifier, '.', '_')"/>;
   </xsl:template>
 
   <xsl:template match="p:DD_Rule" mode="definitions" >
@@ -80,7 +80,7 @@
     <xsl:variable name="dest-node">
       <xsl:choose>
         <xsl:when test="contains(., '.')">
-          <xsl:value-of select="substring-after(., '.')"/>
+          <xsl:value-of select="translate(., '.', '_')"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="."/>
@@ -88,7 +88,7 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:if test="../p:minimum_occurrences > 0">edge [color=gray];</xsl:if>
-    <xsl:value-of select='$src-node'/> -> <xsl:value-of select="$dest-node"/>;
+    <xsl:value-of select="translate($src-node, '.', '_')"/> -> <xsl:value-of select="$dest-node"/>;
     <xsl:if test="../p:minimum_occurrences > 0">edge [color=black];</xsl:if>
   </xsl:template>
 
