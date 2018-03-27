@@ -29,12 +29,25 @@
     <h1><xsl:value-of select="p:name"/></h1>
 
     <h2>Elements</h2>
-    <xsl:for-each select="p:DD_Class[p:element_flag='true']">
-      <h3><xsl:value-of select="p:name"/></h3>
-      <xsl:apply-templates select=".">
-        <xsl:with-param name="parent"></xsl:with-param>
-      </xsl:apply-templates>
-    </xsl:for-each>
+    <xsl:choose>
+      <xsl:when test="p:DD_Class[p:element_flag='true']">
+        <xsl:for-each select="p:DD_Class[p:element_flag='true']">
+          <h3><xsl:value-of select="p:name"/></h3>
+          <xsl:apply-templates select=".">
+            <xsl:with-param name="parent"></xsl:with-param>
+          </xsl:apply-templates>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:for-each select="p:DD_Class">
+          <h3><xsl:value-of select="p:name"/></h3>
+          <xsl:apply-templates select=".">
+            <xsl:with-param name="parent"></xsl:with-param>
+          </xsl:apply-templates>
+        </xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
+
   </xsl:template>
 
 
