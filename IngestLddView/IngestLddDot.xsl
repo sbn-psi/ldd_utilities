@@ -30,6 +30,28 @@
 
       edge [color=blue];
       <xsl:apply-templates select="p:DD_Class[p:element_flag='true']" mode="rules"/>
+
+      labelloc="t";
+      label="<xsl:value-of select='p:name'/>";
+
+      subgraph cluster0
+      {
+        legend_attribute [label="Attribute"];
+        legend_attribute2 [label="Attribute"];
+        legend_class [shape="box", label="Class"];
+        legend_rule [shape="diamond", label="Rule"];
+
+        legend_class -> legend_rule;
+        
+        edge [color="black"];
+        legend_class -> legend_attribute [label="Required"];
+        edge [color="gray"];
+        legend_class -> legend_attribute2 [label="Optional"];
+
+
+        labelloc="t";
+        label="Legend";
+      }
     }
   </xsl:template>
 
