@@ -55,7 +55,7 @@
   -->
   <xsl:template match="p:DD_Class" mode="relationships">
     /* Associations from <xsl:value-of select="p:name"/> */
- 
+
     <xsl:apply-templates select="p:DD_Association" mode="relationships">
       <xsl:with-param name="src-node" select="p:name"/>
     </xsl:apply-templates>
@@ -87,9 +87,9 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="../p:minimum_occurrences > 0">edge [color=gray];</xsl:if>
+    <xsl:if test="../p:minimum_occurrences = 0">edge [color=gray];</xsl:if>
     <xsl:value-of select='$src-node'/> -> <xsl:value-of select="$dest-node"/>;
-    <xsl:if test="../p:minimum_occurrences > 0">edge [color=black];</xsl:if>
+    <xsl:if test="../p:minimum_occurrences = 0">edge [color=black];</xsl:if>
   </xsl:template>
 
   <!--
