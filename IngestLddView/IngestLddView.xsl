@@ -117,14 +117,14 @@
   <!-- XS choice is a magic keyword in the association list. This will find
        associations that contain xs choice and handle them differently.
   -->
-  <xsl:template match="p:DD_Association[p:local_identifier='XSChoice#']">
+  <xsl:template match="p:DD_Association[p:identifier_reference='XSChoice#']">
     <xsl:param name="parent"/>
 
     <h4><xsl:value-of select="p:minimum_occurrences"/>
       <xsl:if test="not(p:minimum_occurrences = p:maximum_occurrences)">-<xsl:value-of select="p:maximum_occurrences"/></xsl:if>
     of the following:</h4>
     <div class='choice'>
-      <xsl:for-each select="p:local_identifier[not(.='XSChoice#')]">
+      <xsl:for-each select="p:identifier_reference[not(.='XSChoice#')]">
         <xsl:variable name="local_identifier"><xsl:value-of select="."/></xsl:variable>
         <div>
           <h4><xsl:value-of select="."/></h4>

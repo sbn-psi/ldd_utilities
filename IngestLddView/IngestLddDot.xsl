@@ -124,6 +124,7 @@
   <xsl:template match="p:DD_Class" mode="rules">
     <xsl:param name="parent-path"/>
     <xsl:variable name="node-path"><xsl:value-of select="$parent-path"/><xsl:value-of select="$ns"/>:<xsl:value-of select="p:name"/></xsl:variable>
+    /* Rules for <xsl:value-of select="$node-path"/> */
     <xsl:variable name="class-name" select="p:name"/>
 
     <xsl:apply-templates select="//p:DD_Rule[substring($node-path, string-length($node-path) - string-length(p:rule_context) +1) = p:rule_context]" mode="rules">
@@ -148,7 +149,7 @@
   -->
   <xsl:template match="p:DD_Association[p:reference_type='attribute_of']" mode="rules">
     <xsl:param name="parent-path"/>
-    <xsl:variable name="local-identifier" select="p:local_identifier"/>
+    <xsl:variable name="local-identifier" select="p:identifier_reference"/>
 
     <xsl:apply-templates select="//p:DD_Attribute[p:local_identifier=$local-identifier]" mode="rules">
         <xsl:with-param name="parent-path" select="$parent-path"/>
@@ -160,7 +161,7 @@
   -->
   <xsl:template match="p:DD_Association[p:reference_type='component_of']" mode="rules">
     <xsl:param name="parent-path"/>
-    <xsl:variable name="local-identifier" select="p:local_identifier"/>
+    <xsl:variable name="local-identifier" select="p:identifier_reference"/>
 
     <xsl:apply-templates select="//p:DD_Class[p:local_identifier=$local-identifier]" mode="rules">
         <xsl:with-param name="parent-path" select="$parent-path"/>
