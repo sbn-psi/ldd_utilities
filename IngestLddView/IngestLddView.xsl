@@ -27,7 +27,9 @@
 
   <xsl:template match="p:Ingest_LDD">
     <h1><xsl:value-of select="p:name"/></h1>
-
+    <p>
+      <xsl:value-of select="p:comment"/>
+    </p>
     <h2>Elements</h2>
     <xsl:choose>
       <xsl:when test="p:DD_Class[p:element_flag='true']">
