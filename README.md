@@ -6,7 +6,7 @@ Miscellaneous utilities for working with local data dictionaries in PDS4
 
 ### Requirements
 
-You will need an XML stylesheet processor such xsltproc or saxon to transform your stylesheet.
+You will need an XML stylesheet processor such xsltproc or saxon to transform your dictionary.
 
 xsltproc is available at <http://xmlsoft.org/XSLT/xsltproc2.html>
 
