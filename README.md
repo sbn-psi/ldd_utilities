@@ -4,6 +4,14 @@ Miscellaneous utilities for working with local data dictionaries in PDS4
 
 ## IngestLddView
 
+### Requirements
+
+You will need an XML stylesheet processor such xsltproc or saxon to transform your stylesheet.
+
+xsltproc is available at <http://xmlsoft.org/XSLT/xsltproc2.html>
+
+Saxon is available at <https://sourceforge.net/projects/saxon/files/Saxon-HE/9.8/> 
+
 ### Html
 
 The first utility is IngestLddView, which will convert an Ingest LDD file into a (more) human-readable form.
