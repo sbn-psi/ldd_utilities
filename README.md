@@ -18,7 +18,7 @@ Saxon is available at <https://sourceforge.net/projects/saxon/files/Saxon-HE/9.8
 
 You can download both stylesheets from GitHub. Unless you have GitHub experience, use the links below:
 
-[HTML version](https://raw.githubusercontent.com/sbn-psi/ldd_utilities/master/IngestLddView/IngestLddDot.xsl)
+[HTML version](https://raw.githubusercontent.com/sbn-psi/ldd_utilities/master/IngestLddView/IngestLddView.xsl)
 
 [Graphviz Version](https://raw.githubusercontent.com/sbn-psi/ldd_utilities/master/IngestLddView/IngestLddDot.xsl)
 
