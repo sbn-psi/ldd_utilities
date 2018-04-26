@@ -14,6 +14,8 @@ xsltproc is available at <http://xmlsoft.org/XSLT/xsltproc2.html>
 
 Saxon is available at <https://sourceforge.net/projects/saxon/files/Saxon-HE/9.8/> 
 
+If you want to be able to visualize the dictionary, you will need Graphviz, which is available at <https://www.graphviz.org/>
+
 ### Getting the stylesheets
 
 You can download both stylesheets from GitHub. Unless you have GitHub experience, use the links below:
