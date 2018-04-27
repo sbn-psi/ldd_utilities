@@ -16,6 +16,8 @@ Saxon is available at <https://sourceforge.net/projects/saxon/files/Saxon-HE/9.8
 
 If you want to be able to visualize the dictionary, you will need Graphviz, which is available at <https://www.graphviz.org/>
 
+Mitch Gordon at SETI has provided some [additional notes](WINDOWS.md) on using IngestLDDView with windows.
+
 ### Getting the stylesheets
 
 You can download both stylesheets from GitHub. Unless you have GitHub experience, use the links below:
