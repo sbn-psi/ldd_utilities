@@ -42,7 +42,7 @@
       </xsl:if>
       <xsl:text>}</xsl:text>
     </xsl:if>
-    <xsl:if test="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']">
+    <xsl:if test="p:DD_Association[p:reference_type='component_of' or p:reference_type='parent_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']">
       <xsl:text>&#10;</xsl:text>
       <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']" mode="choice"/>
     </xsl:if>
@@ -51,7 +51,7 @@
   </xsl:template>
 
   <xsl:template match="p:DD_Class" mode="relationships" >
-    <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of']" mode="components">
+    <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of' or p:reference_type='parent_of']" mode="components">
       <xsl:with-param name="src-node" select="p:name"/>
     </xsl:apply-templates>
   </xsl:template>
@@ -65,17 +65,33 @@
         <xsl:otherwise><xsl:value-of select='p:maximum_occurrences'/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="reference_type"><xsl:value-of select='p:reference_type'/></xsl:variable>
     <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
       <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
       <xsl:variable name="name"><xsl:value-of select='//p:DD_Class[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
-      <xsl:value-of select="$src-node"/>
-      <xsl:text> *-- "</xsl:text>
-      <xsl:value-of select='$min_occurs'/>
-      <xsl:text>..</xsl:text>
-      <xsl:value-of select='$max_occurs'/>
-      <xsl:text>" </xsl:text>
-      <xsl:value-of select='$name'/>
-      <xsl:text>&#10;</xsl:text>
+
+      <xsl:choose>
+        <xsl:when test="$reference_type='component_of'">
+          <xsl:value-of select="$src-node"/>
+          <xsl:text> *-- "</xsl:text>
+          <xsl:value-of select='$min_occurs'/>
+          <xsl:text>..</xsl:text>
+          <xsl:value-of select='$max_occurs'/>
+          <xsl:text>" </xsl:text>
+          <xsl:value-of select='$name'/>
+        </xsl:when>
+        <xsl:when test="$reference_type='parent_of'">
+          <xsl:value-of select="$name"/>
+          <xsl:text> &lt;|-- "</xsl:text>
+          <xsl:value-of select='$min_occurs'/>
+          <xsl:text>..</xsl:text>
+          <xsl:value-of select='$max_occurs'/>
+          <xsl:text>" </xsl:text>
+          <xsl:value-of select='$src-node'/>
+        </xsl:when>
+        <xsl:otherwise/>
+      </xsl:choose>
+       <xsl:text>&#10;</xsl:text>
     </xsl:for-each>
   </xsl:template>
 
