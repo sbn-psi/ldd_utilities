@@ -42,6 +42,10 @@
       </xsl:if>
       <xsl:text>}</xsl:text>
     </xsl:if>
+    <xsl:if test="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#']">
+      <xsl:text>&#10;</xsl:text>
+      <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#']" mode="choice"/>
+    </xsl:if>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
   </xsl:template>
@@ -74,6 +78,27 @@
       <xsl:text>&#10;</xsl:text>
     </xsl:for-each>
   </xsl:template>
+
+  <xsl:template match="p:DD_Association" mode="choice">
+    
+    <xsl:text>note bottom</xsl:text>
+    <xsl:text>&#10;</xsl:text>
+    <xsl:text>  Choice:</xsl:text>
+    <xsl:text>&#10;</xsl:text>
+
+    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
+      <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
+      <xsl:variable name="name"><xsl:value-of select='//p:DD_Class[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
+      <xsl:text>  </xsl:text>
+      <xsl:value-of select='$name'/>
+      <xsl:text>&#10;</xsl:text>
+    </xsl:for-each>
+    
+    <xsl:text>end note</xsl:text>    
+    <xsl:text>&#10;</xsl:text>
+
+  </xsl:template>
+
 
 
   <xsl:template match="p:DD_Association" mode="attributes">
