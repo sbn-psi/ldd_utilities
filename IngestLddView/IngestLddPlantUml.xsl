@@ -94,7 +94,7 @@
         <xsl:when test="$reference_type='component_of'">
           <xsl:value-of select="$src-node"/>
             <xsl:text> *-- </xsl:text>
-            <xsl:if test='not(..[p:identifier_reference="XSChoice#"])'>
+            <xsl:if test='not(..[p:identifier_reference="XSChoice#" or p:local_identifier="XSChoice#"])'>
               <xsl:text>"</xsl:text>
               <xsl:value-of select='$min_occurs'/>
               <xsl:text>..</xsl:text>
