@@ -103,8 +103,7 @@
         </xsl:when>
         <xsl:when test="$reference_type='parent_of'">
           <xsl:value-of select="$name"/>
-          <xsl:text> &lt;|-- "</xsl:text>
-          <xsl:text>" </xsl:text>
+          <xsl:text> &lt;|-- </xsl:text>
           <xsl:value-of select='$src-node'/>
         </xsl:when>
         <xsl:otherwise/>
