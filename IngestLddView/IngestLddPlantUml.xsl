@@ -91,19 +91,19 @@
       <xsl:choose>
         <xsl:when test="$reference_type='component_of'">
           <xsl:value-of select="$src-node"/>
-          <xsl:text> *-- "</xsl:text>
-          <xsl:value-of select='$min_occurs'/>
-          <xsl:text>..</xsl:text>
-          <xsl:value-of select='$max_occurs'/>
-          <xsl:text>" </xsl:text>
-          <xsl:value-of select='$name'/>
+            <xsl:text> *-- </xsl:text>
+            <xsl:if test='not(..[p:identifier_reference="XSChoice#"])'>
+              <xsl:text>"</xsl:text>
+              <xsl:value-of select='$min_occurs'/>
+              <xsl:text>..</xsl:text>
+              <xsl:value-of select='$max_occurs'/>
+              <xsl:text>" </xsl:text>
+            </xsl:if>
+            <xsl:value-of select='$name'/>
         </xsl:when>
         <xsl:when test="$reference_type='parent_of'">
           <xsl:value-of select="$name"/>
           <xsl:text> &lt;|-- "</xsl:text>
-          <xsl:value-of select='$min_occurs'/>
-          <xsl:text>..</xsl:text>
-          <xsl:value-of select='$max_occurs'/>
           <xsl:text>" </xsl:text>
           <xsl:value-of select='$src-node'/>
         </xsl:when>
@@ -114,10 +114,21 @@
   </xsl:template>
 
   <xsl:template match="p:DD_Association" mode="choice">
+    <xsl:variable name="min_occurs"><xsl:value-of select='p:minimum_occurrences'/></xsl:variable>
+    <xsl:variable name="max_occurs">
+      <xsl:choose>
+        <xsl:when test="p:maximum_occurrences='unbounded'">*</xsl:when>
+        <xsl:otherwise><xsl:value-of select='p:maximum_occurrences'/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     
     <xsl:text>note bottom</xsl:text>
     <xsl:text>&#10;</xsl:text>
-    <xsl:text>  Choice:</xsl:text>
+    <xsl:text>  Choice (</xsl:text>
+    <xsl:value-of select='$min_occurs'/>
+    <xsl:text>-</xsl:text>
+    <xsl:value-of select='$min_occurs'/>
+    <xsl:text>):</xsl:text>
     <xsl:text>&#10;</xsl:text>
 
     <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
