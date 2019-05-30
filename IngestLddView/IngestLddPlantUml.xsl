@@ -6,9 +6,17 @@
 >
   <xsl:output method="text" encoding="utf-8"/>
   <xsl:param name="ns"><xsl:value-of select="/p:Ingest_LDD/p:namespace_id"/></xsl:param>
+  <xsl:param name="class"></xsl:param>
 
   <xsl:template match="/">
-    <xsl:apply-templates select="p:Ingest_LDD"/>
+    <xsl:choose>
+      <xsl:when test="$class=''">
+          <xsl:apply-templates select="p:Ingest_LDD" mode="all"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="p:Ingest_LDD" mode="single"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 
@@ -18,7 +26,7 @@
     attributes, and rules. It will also help locate problems such as
     orphaned classes, attributes, or rules.
   -->
-  <xsl:template match="p:Ingest_LDD">
+  <xsl:template match="p:Ingest_LDD" mode="all">
     <xsl:text>@startuml</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:apply-templates select="p:DD_Class" mode="definitions"/>
@@ -26,6 +34,16 @@
     <xsl:text>@enduml</xsl:text>
     <xsl:text>&#10;</xsl:text>
   </xsl:template>
+
+  <xsl:template match="p:Ingest_LDD" mode="single">
+    <xsl:text>@startuml</xsl:text>
+    <xsl:text>&#10;</xsl:text>
+    <xsl:apply-templates select="p:DD_Class[p:name=$class]" mode="definitions"/>
+    <xsl:apply-templates select="p:DD_Class[p:name=$class]" mode="relationships"/>
+    <xsl:text>@enduml</xsl:text>
+    <xsl:text>&#10;</xsl:text>
+  </xsl:template>
+
 
 
   <!-- These templates will define the nodes in the graphviz file -->
