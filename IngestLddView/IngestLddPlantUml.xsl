@@ -159,9 +159,16 @@
       <xsl:variable name="data_type"><xsl:value-of select='//p:DD_Attribute[p:local_identifier=$local_id_reference]/p:DD_Value_Domain/p:value_data_type'/></xsl:variable>
       <xsl:variable name="name"><xsl:value-of select='//p:DD_Attribute[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
       <xsl:text>  {field} </xsl:text>
-      <xsl:value-of select='$name'/>
-      <xsl:text> : </xsl:text>
-      <xsl:value-of select='$data_type'/>
+      <xsl:choose>
+        <xsl:when test="$name=''">
+          <xsl:value-of select='$local_id_reference'/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select='$name'/>
+          <xsl:text> : </xsl:text>
+          <xsl:value-of select='$data_type'/>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:text> (</xsl:text>
       <xsl:value-of select='$min_occurs'/>
       <xsl:text>..</xsl:text>
