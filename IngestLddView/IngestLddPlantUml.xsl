@@ -36,15 +36,15 @@
       <xsl:text> {</xsl:text>
       <xsl:text>&#10;</xsl:text>
       <xsl:apply-templates select="p:DD_Association[p:reference_type='attribute_of']" mode="attributes"/>
-      <xsl:if test="p:DD_Association[p:identifier_reference='pds.Internal_Reference']">
+      <xsl:if test="p:DD_Association[p:identifier_reference='pds.Internal_Reference' or p:local_identifier='pds.Internal_Reference']">
         <xsl:text>  Internal_Reference: pds.Internal_Reference</xsl:text>
         <xsl:text>&#10;</xsl:text>
       </xsl:if>
       <xsl:text>}</xsl:text>
     </xsl:if>
-    <xsl:if test="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#']">
+    <xsl:if test="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']">
       <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#']" mode="choice"/>
+      <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']" mode="choice"/>
     </xsl:if>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
@@ -65,7 +65,7 @@
         <xsl:otherwise><xsl:value-of select='p:maximum_occurrences'/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
+    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
       <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
       <xsl:variable name="name"><xsl:value-of select='//p:DD_Class[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
       <xsl:value-of select="$src-node"/>
@@ -86,7 +86,7 @@
     <xsl:text>  Choice:</xsl:text>
     <xsl:text>&#10;</xsl:text>
 
-    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
+    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
       <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
       <xsl:variable name="name"><xsl:value-of select='//p:DD_Class[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
       <xsl:text>  </xsl:text>
@@ -109,7 +109,7 @@
         <xsl:otherwise><xsl:value-of select='p:maximum_occurrences'/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#']">
+    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'] | p:local_identifier[. != 'XSChoice#']">
       <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
       <xsl:variable name="data_type"><xsl:value-of select='//p:DD_Attribute[p:local_identifier=$local_id_reference]/p:DD_Value_Domain/p:value_data_type'/></xsl:variable>
       <xsl:variable name="name"><xsl:value-of select='//p:DD_Attribute[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
