@@ -62,7 +62,9 @@
     </xsl:if>
     <xsl:if test="p:DD_Association[p:reference_type='component_of' or p:reference_type='parent_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']">
       <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']" mode="choice"/>
+      <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']" mode="choice">
+        <xsl:with-param name="src-node" select="p:name"/>
+      </xsl:apply-templates>
     </xsl:if>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
@@ -113,6 +115,7 @@
   </xsl:template>
 
   <xsl:template match="p:DD_Association" mode="choice">
+    <xsl:param name='src-node'/>
     <xsl:variable name="min_occurs"><xsl:value-of select='p:minimum_occurrences'/></xsl:variable>
     <xsl:variable name="max_occurs">
       <xsl:choose>
@@ -121,7 +124,8 @@
       </xsl:choose>
     </xsl:variable>
     
-    <xsl:text>note bottom</xsl:text>
+    <xsl:text>note bottom of </xsl:text>
+    <xsl:value-of select='$src-node'/>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>  Choice (</xsl:text>
     <xsl:value-of select='$min_occurs'/>
