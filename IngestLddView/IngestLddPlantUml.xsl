@@ -50,12 +50,16 @@
   <xsl:template match="p:DD_Class" mode="definitions" >
     <xsl:text>class </xsl:text>
     <xsl:value-of select="p:name"/>
-    <xsl:if test="p:DD_Association[p:reference_type='attribute_of'] or p:DD_Association[p:identifier_reference='pds.Internal_Reference']">
+    <xsl:if test="p:DD_Association[p:reference_type='attribute_of'] or p:DD_Association[p:identifier_reference='pds.Internal_Reference'] or p:DD_Association[p:identifier_reference='pds.Local_Internal_Reference']">
       <xsl:text> {</xsl:text>
       <xsl:text>&#10;</xsl:text>
       <xsl:apply-templates select="p:DD_Association[p:reference_type='attribute_of']" mode="attributes"/>
       <xsl:if test="p:DD_Association[p:identifier_reference='pds.Internal_Reference' or p:local_identifier='pds.Internal_Reference']">
         <xsl:text>  Internal_Reference: pds.Internal_Reference</xsl:text>
+        <xsl:text>&#10;</xsl:text>
+      </xsl:if>
+      <xsl:if test="p:DD_Association[p:identifier_reference='pds.Local_Internal_Reference' or p:local_identifier='pds.Local_Internal_Reference']">
+        <xsl:text>  Local_Internal_Reference: pds.Local_Internal_Reference</xsl:text>
         <xsl:text>&#10;</xsl:text>
       </xsl:if>
       <xsl:text>}</xsl:text>
