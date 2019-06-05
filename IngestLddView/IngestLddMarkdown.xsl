@@ -43,8 +43,10 @@ In order to use the schema file, the Product_Observational element of your produ
    xmlns="http://pds.nasa.gov/pds4/pds/v1"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:<xsl:value-of select='$ns'/>="http://pds.nasa.gov/pds4/<xsl:value-of select='$ns'/>/v1"
-   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.xsd
-                       http://pds.nasa.gov/pds4/<xsl:value-of select='$ns'/>/v1 https://pds.nasa.gov/pds4/nucspec/v1/<xsl:value-of select='replace($dictfile, ".xml", ".xsd")'/>"] 
+   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 
+                       https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.xsd
+                       http://pds.nasa.gov/pds4/<xsl:value-of select='$ns'/>/v1 
+                       https://pds.nasa.gov/pds4/nucspec/v1/<xsl:value-of select='replace($dictfile, ".xml", ".xsd")'/>"] 
 ```
 
 This example assumes that the <xsl:value-of select="p:name"/> is the only dictionary in your label. If you have multiple dictionaries, you will need to make other modifications.
@@ -54,8 +56,10 @@ This example assumes that the <xsl:value-of select="p:name"/> is the only dictio
 In order to use the schematron file, the xml prolog of your product label will need to have references to the dictionary added to it, as follows:
 
 ```xml
-[?xml-model href="https://pds.nasa.gov/pds4/mission/<xsl:value-of select='$ns'/>/v1/<xsl:value-of select='replace($dictfile, ".xml", ".sch")'/>" schematypens="http://purl.oclc.org/dsdl/schematron"?]
-```
+[?xml-model 
+    href="https://pds.nasa.gov/pds4/<xsl:value-of select='$ns'/>/v1/<xsl:value-of select='replace($dictfile, ".xml", ".sch")'/>" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?]
+````
 
 ### Including the data dictionary elements
 
