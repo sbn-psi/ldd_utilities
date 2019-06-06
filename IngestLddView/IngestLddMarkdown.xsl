@@ -94,7 +94,7 @@ The data dictionary defines XML elements that can be used in a `Discipline_Area`
   <xsl:template match="p:DD_Class" mode="org">
 ### <xsl:value-of select="p:name"/>
     <xsl:text>&#10;</xsl:text>
-![Image](images/<xsl:value-of select='p:name'/>.png)
+![<xsl:value-of select='p:name'/>](images/<xsl:value-of select='p:name'/>.png)
     <xsl:text>&#10;</xsl:text>
     <xsl:value-of select='p:definition'/>
     <xsl:text>&#10;</xsl:text>
