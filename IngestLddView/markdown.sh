@@ -13,3 +13,4 @@ LDD_FILE=$1
 saxon -xsl:"${SCRIPT_DIR}"/IngestLddMarkdown.xsl -s:"${LDD_FILE}" -o:"${LDD_FILE}".md dictfile="${LDD_FILE}"
 
 pandoc --css pandoc.css --pdf-engine=${PDF_ENGINE} -o "${LDD_FILE}".pdf ${LDD_FILE}.md
+pandoc --css pandoc.css -o "${LDD_FILE}".html ${LDD_FILE}.md
