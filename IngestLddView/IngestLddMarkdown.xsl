@@ -96,12 +96,12 @@
 
 
   <xsl:template match="p:DD_Class" mode="org">
+    <xsl:text>&#10;</xsl:text>  
     <xsl:text>### </xsl:text><xsl:value-of select="p:name"/><xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>![</xsl:text><xsl:value-of select='p:name'/><xsl:text>](images/</xsl:text><xsl:value-of select='p:name'/><xsl:text>.png)&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
-    <xsl:value-of select='p:definition'/>
-    <xsl:text>&#10;</xsl:text>
+    <xsl:value-of select='p:definition'/><xsl:text>&#10;</xsl:text>
   </xsl:template>
 
   <xsl:template match="p:DD_Class" mode="sample">
@@ -130,16 +130,14 @@
 
 
   <xsl:template match="p:DD_Class" mode="def">
-    <xsl:text>### </xsl:text><xsl:value-of select="p:name"/><xsl:text>&#10;</xsl:text>
-    <xsl:text>&#10;</xsl:text>
+    <xsl:text>### </xsl:text><xsl:value-of select="p:name"/> -- class<xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:value-of select='p:definition'/><xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
   </xsl:template>
 
   <xsl:template match="p:DD_Attribute" mode="def">
-    <xsl:text>### </xsl:text><xsl:value-of select="p:name"/><xsl:text>&#10;</xsl:text>
-    <xsl:text>&#10;</xsl:text>
+    <xsl:text>### </xsl:text><xsl:value-of select="p:name"/> -- attribute<xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:value-of select='p:definition'/><xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
