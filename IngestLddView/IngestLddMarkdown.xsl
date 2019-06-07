@@ -14,12 +14,11 @@
   </xsl:template>
 
   <xsl:template match="p:Ingest_LDD">
-    <xsl:text># PDS4 </xsl:text><xsl:value-of select="p:name"/><xsl:text> Local Data Dictionary User’s Guide&#10;</xsl:text>
-    <xsl:text>&#10;</xsl:text>
-    <xsl:value-of select="p:last_modification_date_time"/><xsl:text>&#10;</xsl:text>
-    <xsl:text>&#10;</xsl:text>
-    <xsl:value-of select="p:full_name"/><xsl:text>&#10;</xsl:text>
-    <xsl:text>&#10;</xsl:text>
+    <xsl:text>---&#10;</xsl:text>
+    <xsl:text>title: </xsl:text><xsl:text>PDS4 </xsl:text><xsl:value-of select="p:name"/><xsl:text> Local Data Dictionary User’s Guide&#10;</xsl:text>
+    <xsl:text>date: </xsl:text><xsl:value-of select="p:last_modification_date_time"/><xsl:text>&#10;</xsl:text>
+    <xsl:text>author: </xsl:text><xsl:value-of select="p:full_name"/><xsl:text>&#10;</xsl:text>
+    <xsl:text>---&#10;</xsl:text>
     <xsl:text>## Introduction&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:value-of select="p:comment"/><xsl:text>&#10;</xsl:text>
