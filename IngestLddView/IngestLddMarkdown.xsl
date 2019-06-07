@@ -95,12 +95,28 @@
 
 
   <xsl:template match="p:DD_Class" mode="org">
+    <xsl:variable name="name"><xsl:value-of select='p:name'/></xsl:variable>
     <xsl:text>&#10;</xsl:text>  
-    <xsl:text>### </xsl:text><xsl:value-of select="p:name"/><xsl:text>&#10;</xsl:text>
+    <xsl:text>### </xsl:text><xsl:value-of select="$name"/><xsl:text>&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
-    <xsl:text>![</xsl:text><xsl:value-of select='p:name'/><xsl:text>](images/</xsl:text><xsl:value-of select='p:name'/><xsl:text>.png)&#10;</xsl:text>
+    <xsl:text>![</xsl:text><xsl:value-of select='$name'/><xsl:text>](images/</xsl:text><xsl:value-of select='p:name'/><xsl:text>.png)&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:value-of select='p:definition'/><xsl:text>&#10;</xsl:text>
+    <xsl:if test='//p:DD_Rule[ends-with(p:rule_context, $name)]/p:DD_Rule_Statement'>
+      <xsl:text>&#10;</xsl:text>
+      <xsl:text>* </xsl:text><xsl:value-of select='$name'/><xsl:text> Rules&#10;</xsl:text>
+      <xsl:apply-templates select='//p:DD_Rule[ends-with(p:rule_context, $name)]/p:DD_Rule_Statement' mode='org'/>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match='p:DD_Rule_Statement' mode='org'>
+    <xsl:variable name="rule_message">
+      <xsl:choose>
+        <xsl:when test='p:rule_description'><xsl:value-of select='p:rule_description'/></xsl:when>
+        <xsl:otherwise><xsl:value-of select='p:rule_message'/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:text>  * </xsl:text><xsl:value-of select='$rule_message'/><xsl:text>&#10;</xsl:text>    
   </xsl:template>
 
   <xsl:template match="p:DD_Class" mode="sample">
