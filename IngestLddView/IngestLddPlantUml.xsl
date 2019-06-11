@@ -64,6 +64,7 @@
       </xsl:if>
       <xsl:text>}</xsl:text>
     </xsl:if>
+
     <xsl:if test="p:DD_Association[p:reference_type='component_of' or p:reference_type='parent_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']">
       <xsl:text>&#10;</xsl:text>
       <xsl:apply-templates select="p:DD_Association[p:reference_type='component_of'][p:identifier_reference='XSChoice#' or p:local_identifier='XSChoice#']" mode="choice">
@@ -98,7 +99,7 @@
         <xsl:when test="$reference_type='component_of'">
           <xsl:value-of select="$src-node"/>
             <xsl:text> *-- </xsl:text>
-            <xsl:if test='not(..[p:identifier_reference="XSChoice#" or p:local_identifier="XSChoice#"])'>
+            <xsl:if test='not(../p:identifier_reference="XSChoice#") and not(../p:local_identifier="XSChoice#")'>
               <xsl:text>"</xsl:text>
               <xsl:value-of select='$min_occurs'/>
               <xsl:text>..</xsl:text>
