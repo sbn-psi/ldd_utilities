@@ -1,0 +1,1 @@
+plantuml -tsvg geom-split.xml.plantuml &&  inkscape -o geom-split.xml.pdf --export-type=pdf geom-split.xml.svg && open geom-split.xml.pdf
