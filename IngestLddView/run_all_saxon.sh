@@ -11,5 +11,5 @@ saxon -xsl:"${SCRIPT_DIR}"/IngestLddDot.xsl -s:"${LDD_FILE}" -o:"${LDD_FILE}".do
 dot -Tpdf -O "${LDD_FILE}".dot
 
 saxon -xsl:"${SCRIPT_DIR}"/IngestLddPlantUml.xsl -s:"${LDD_FILE}" -o:"${LDD_FILE}".uml
-plantuml -tsvg "${LDD_FILE}".uml 
+plantuml -tsvg "${LDD_FILE}".plantuml 
 open "${LDD_FILE}".svg
