@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 
 import sys
+import argparse
+import json
 import os.path
 
 import jinja2
 
 ENV = jinja2.Environment(loader=jinja2.PackageLoader("lddtestgen"))
 
-TESTS = [
-    {"product_id": "pass1", "test_type":"VALID", "template_file":"binary_table.xml.jinja", "snippet_files":{"survey":"survey_pass1.txt"}},
-    {"product_id": "pass2", "test_type":"VALID", "template_file":"binary_table.xml.jinja", "snippet_files":{"survey":"survey_pass2.txt"}},
-    {"product_id": "pass3", "test_type":"VALID", "template_file":"binary_table.xml.jinja", "snippet_files":{"survey":"survey_pass3.txt"}},
-    {"product_id": "pass4", "test_type":"VALID", "template_file":"2d_image.xml.jinja", "snippet_files":{"survey":"survey_pass4.txt"}},
-    {"product_id": "pass5", "test_type":"VALID", "template_file":"2d_image.xml.jinja", "snippet_files":{"survey":"survey_pass5.txt"}},
-]
-
 def main():
-    for test in TESTS:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--json-file", required=True)
+    args = parser.parse_args()
+    tests = json.load(open(args.json_file))
+
+    for test in tests:
         create_test(test["product_id"], test["test_type"], test["template_file"], test["snippet_files"])
 
 def create_test(product_id, test_type, template_file, snippet_files):
