@@ -72,7 +72,7 @@
   </xsl:template>
 
   <xsl:template match="p:DD_Rule" mode="definitions" >
-    <xsl:value-of select="p:local_identifier"/>  [shape=diamond];
+    <xsl:text>"</xsl:text><xsl:value-of select="p:local_identifier"/><xsl:text>"</xsl:text>  [shape=diamond];
   </xsl:template>
 
 
@@ -199,7 +199,7 @@
   <!-- Draw a line from a class or attribute to an associated rule -->
   <xsl:template match="p:DD_Rule" mode="rules">
     <xsl:param name='src-node'/>
-    <xsl:value-of select="$src-node"/> -> <xsl:value-of select='p:local_identifier'/>;
+    <xsl:text>"</xsl:text><xsl:value-of select="$src-node"/><xsl:text>"</xsl:text> -> <xsl:value-of select='p:local_identifier'/>;
   </xsl:template>
 
 </xsl:stylesheet>
