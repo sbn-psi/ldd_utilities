@@ -59,6 +59,26 @@ For instance, to get a pdf, run:
 
 `dot -O -Tpdf [dotfile]`
 
+### UML
+
+A UML companion to IngestLddView is IngestLddDot. This will convert an Ingest LDD file into a PlantUML file, 
+which can be used to quickly visualize the relationships between classes. 
+IngestLDDPlantUML is invoked the same way as IngestLDDView:
+
+`xsltproc IngestLddPlantUml.xsl [ingest ldd file] > [umlfile]`
+
+or
+
+`saxon -xsl:IngestLddPlantUml.xsl -s:[ingest ldd file] -o:[umlfile]`
+
+From there, your uml file can be converted to a graphical format.
+
+For instance, to get an svg, run:
+
+`plantuml -tsvg [uml]`
+
+
+
 ### Known issues:
 Need to add support for xs:any
 The output is not exactly attractive. Need to format it for easier comprehension.
