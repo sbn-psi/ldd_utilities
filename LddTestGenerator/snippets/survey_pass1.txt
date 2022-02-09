@@ -1,0 +1,48 @@
+<survey:Survey>
+    <survey:field_id>N54064</survey:field_id>
+    <survey:observation_purpose>Survey</survey:observation_purpose>
+    <survey:observation_technique>Sidereal Stare</survey:observation_technique>
+    <survey:Image_Corners>
+      <survey:equinox>J2000.0</survey:equinox>
+      <survey:Corner_Position>
+        <survey:corner_identification>Top Left</survey:corner_identification>
+        <survey:Coordinate>
+          <survey:right_ascension unit="deg">229.79215</survey:right_ascension>
+          <survey:declination unit="deg">55.22453</survey:declination>
+        </survey:Coordinate>
+      </survey:Corner_Position>
+      <survey:Corner_Position>
+        <survey:corner_identification>Top Right</survey:corner_identification>
+        <survey:Coordinate>
+          <survey:right_ascension unit="deg">232.02149</survey:right_ascension>
+          <survey:declination unit="deg">55.22453</survey:declination>
+        </survey:Coordinate>
+      </survey:Corner_Position>
+      <survey:Corner_Position>
+        <survey:corner_identification>Bottom Left</survey:corner_identification>
+        <survey:Coordinate>
+          <survey:right_ascension unit="deg">229.79215</survey:right_ascension>
+          <survey:declination unit="deg">52.99519</survey:declination>
+        </survey:Coordinate>
+      </survey:Corner_Position>
+      <survey:Corner_Position>
+        <survey:corner_identification>Bottom Right</survey:corner_identification>
+        <survey:Coordinate>
+          <survey:right_ascension unit="deg">232.02149</survey:right_ascension>
+          <survey:declination unit="deg">52.99519</survey:declination>
+        </survey:Coordinate>
+      </survey:Corner_Position>
+    </survey:Image_Corners>
+    <survey:Limiting_Magnitudes>
+      <survey:band_name>G</survey:band_name>
+      <survey:reference_object_type>Asteroid</survey:reference_object_type>
+      <survey:Percentage_Limit>
+        <survey:percentage>50</survey:percentage>
+        <survey:limiting_magnitude>21.88</survey:limiting_magnitude>
+      </survey:Percentage_Limit>
+      <survey:Percentage_Limit>
+        <survey:percentage>0</survey:percentage>
+        <survey:limiting_magnitude>23.13</survey:limiting_magnitude>
+      </survey:Percentage_Limit>
+    </survey:Limiting_Magnitudes>
+  </survey:Survey>

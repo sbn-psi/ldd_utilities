@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/survey/v1/PDS4_SURVEY_1A00_1010.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:survey="http://pds.nasa.gov/pds4/survey/v1"
+  xmlns:disp="http://pds.nasa.gov/pds4/disp/v1">
+<!--  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd
+                      http://pds.nasa.gov/pds4/survey/v1 https://pds.nasa.gov/pds4/survey/v1/PDS4_SURVEY_1A00_1010.xsd">-->
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:survey-example:data:{{ product_id }}</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Survey Example</title>
+    <information_model_version>[IM_VERSION]</information_model_version>
+    <product_class>Product_Observational</product_class>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2020-07-14T04:15:29.414Z</start_date_time>
+      <stop_date_time>2020-07-14T04:15:59.414Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Calibration</purpose>
+      <processing_level>Derived</processing_level>
+      <Science_Facets>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Physical Properties</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Other Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>10K x 10K CCD detector</name>
+        <type>Instrument</type>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Multiple</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Discipline_Area>
+      {{ snippets.disp }}
+      {{ snippets.survey }}
+    </Discipline_Area>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>image.fit</file_name>
+      <local_identifier>file</local_identifier>
+    </File>
+    <Header>
+      <local_identifier>header</local_identifier>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">14400</object_length>
+      <parsing_standard_id>FITS 3.0</parsing_standard_id>
+    </Header>
+    <Array_2D>
+      <local_identifier>image</local_identifier>
+      <offset unit="byte">14400</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>TBD</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <unit>counts</unit>
+        <scaling_factor>1</scaling_factor>
+        <value_offset>32768</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D>
+  </File_Area_Observational>
+</Product_Observational>
