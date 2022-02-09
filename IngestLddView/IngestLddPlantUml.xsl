@@ -50,12 +50,16 @@
   <xsl:template match="p:DD_Class" mode="definitions" >
     <xsl:text>class </xsl:text>
     <xsl:value-of select="p:name"/>
-    <xsl:if test="p:DD_Association[p:reference_type='attribute_of'] or p:DD_Association[p:identifier_reference='pds.Internal_Reference'] or p:DD_Association[p:identifier_reference='pds.Local_Internal_Reference']">
+    <xsl:if test="p:DD_Association[p:reference_type='attribute_of'] or p:DD_Association[p:identifier_reference='pds.Internal_Reference'] or p:DD_Association[p:identifier_reference='pds.External_Reference'] or p:DD_Association[p:identifier_reference='pds.Local_Internal_Reference']">
       <xsl:text> {</xsl:text>
       <xsl:text>&#10;</xsl:text>
       <xsl:apply-templates select="p:DD_Association[p:reference_type='attribute_of']" mode="attributes"/>
       <xsl:if test="p:DD_Association[p:identifier_reference='pds.Internal_Reference' or p:local_identifier='pds.Internal_Reference']">
         <xsl:text>  Internal_Reference: pds.Internal_Reference</xsl:text>
+        <xsl:text>&#10;</xsl:text>
+      </xsl:if>
+      <xsl:if test="p:DD_Association[p:identifier_reference='pds.External_Reference' or p:local_identifier='pds.External_Reference']">
+        <xsl:text>  External_Reference: pds.External_Reference</xsl:text>
         <xsl:text>&#10;</xsl:text>
       </xsl:if>
       <xsl:if test="p:DD_Association[p:identifier_reference='pds.Local_Internal_Reference' or p:local_identifier='pds.Local_Internal_Reference']">
@@ -91,7 +95,7 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="reference_type"><xsl:value-of select='p:reference_type'/></xsl:variable>
-    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
+    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.External_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.External_Reference'][. != 'pds.Local_Internal_Reference']">
       <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
       <xsl:variable name="name"><xsl:value-of select='//p:DD_Class[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
 
@@ -139,7 +143,7 @@
     <xsl:text>):</xsl:text>
     <xsl:text>&#10;</xsl:text>
 
-    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.Local_Internal_Reference']">
+    <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.External_Reference'][. != 'pds.Local_Internal_Reference'] | p:local_identifier[. != 'XSChoice#'][. != 'pds.Internal_Reference'][. != 'pds.External_Reference'][. != 'pds.Local_Internal_Reference']">
       <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
       <xsl:variable name="name"><xsl:value-of select='//p:DD_Class[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
       <xsl:text>  </xsl:text>
