@@ -14,19 +14,23 @@ def main():
     args = parser.parse_args()
 
     e = Enforcer(args.file_name)
-    e.apply_rule("//pds:DD_Association/pds:identifier_reference", [e.restrict_pds_references])
-    e.apply_rule("//pds:DD_Association/pds:local_identifier", [e.restrict_pds_references])
-    e.apply_rule("//pds:DD_Attribute/pds:name", [e.reserve_names, e.restrict_units])
-    e.apply_rule("//pds:DD_Permissible_Value/pds:value", [e.title_case])
-    e.apply_rule("//pds:DD_Attribute", [e.require_value_list_for_types, e.nillables_must_be_required])
-    e.apply_rule("//pds:DD_Class/pds:name", [e.reserve_names])
-    e.apply_rule("//pds:DD_Class", [e.elements_cannot_be_contained])
+    e.apply_rules()
 
 class Enforcer:
     def __init__(self, filename):
         print (f"Checking {filename}")
         self.doc = doc = etree.parse(filename)
         self.filename = os.path.basename(filename)
+
+    def apply_rules(self):
+        self.apply_rule("//pds:DD_Association/pds:identifier_reference", [self.restrict_pds_references])
+        self.apply_rule("//pds:DD_Association/pds:local_identifier", [self.restrict_pds_references])
+        self.apply_rule("//pds:DD_Attribute/pds:name", [self.reserve_names, self.restrict_units])
+        self.apply_rule("//pds:DD_Permissible_Value/pds:value", [self.title_case])
+        self.apply_rule("//pds:DD_Attribute", [self.require_value_list_for_types, self.nillables_must_be_required])
+        self.apply_rule("//pds:DD_Class/pds:name", [self.reserve_names])
+        self.apply_rule("//pds:DD_Class", [self.elements_cannot_be_contained])
+
 
     def apply_rule(self, path, rules):
         for x in self.doc.xpath(path, namespaces=NSMAP):
