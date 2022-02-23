@@ -5,7 +5,6 @@ import os
 from lxml import etree
 
 
-NSMAP = {"pds": "http://pds.nasa.gov/pds4/pds/v1"}
 CASE_EXCEPTIONS = [x.strip() for x in open("case_exceptions.txt")]
 
 def main():
@@ -13,14 +12,15 @@ def main():
     parser.add_argument("file_name")
     args = parser.parse_args()
 
-    e = Enforcer(args.file_name)
+    e = Enforcer(args.file_name, {"pds": "http://pds.nasa.gov/pds4/pds/v1"})
     e.apply_rules()
 
 class Enforcer:
-    def __init__(self, filename):
+    def __init__(self, filename, nsmap):
         print (f"Checking {filename}")
         self.doc = doc = etree.parse(filename)
         self.filename = os.path.basename(filename)
+        self.nsmap = nsmap
 
     def apply_rules(self):
         self.apply_rule("//pds:DD_Association/pds:identifier_reference", [self.restrict_pds_references])
@@ -33,7 +33,7 @@ class Enforcer:
 
 
     def apply_rule(self, path, rules):
-        for x in self.doc.xpath(path, namespaces=NSMAP):
+        for x in self.doc.xpath(path, namespaces=self.nsmap):
             for rule in rules:
                 rule(x)
 
@@ -65,13 +65,13 @@ class Enforcer:
 
 
     def require_value_list_for_types(self, element):
-        attribute_element = element.xpath("pds:name", namespaces=NSMAP)[0]
+        attribute_element = element.xpath("pds:name", namespaces=self.nsmap)[0]
         attribute_name = attribute_element.text
         if attribute_name.endswith("_type"):
-            enum_element = element.xpath("pds:DD_Value_Domain/pds:enumeration_flag", namespaces=NSMAP)[0]
+            enum_element = self.get_element(element, "pds:DD_Value_Domain/pds:enumeration_flag")
             if enum_element.text == "false":
                 self.report(enum_element, f"{attribute_name} has a name of '_type', but is not an enumeration", "ERROR")
-            permissible_values = element.xpath("pds:DD_Value_Domain/pds:DD_Permissible_Value", namespaces=NSMAP)
+            permissible_values = element.xpath("pds:DD_Value_Domain/pds:DD_Permissible_Value", namespaces=self.nsmap)
             if not permissible_values:
                 self.report(enum_element, f"{attribute_name} has a name of '_type', but has no permissible values", "ERROR")
 
@@ -80,7 +80,7 @@ class Enforcer:
         if nillable == "true":
             attribute_name = self.get_text(element, "pds:name")
             local_id = self.get_text(element, "pds:local_identifier")
-            required_by = self.doc.xpath(f"//pds:DD_Association[pds:identifier_reference='{local_id}'][pds:minimum_occurrences > 0]", namespaces=NSMAP)
+            required_by = self.get_elements(self.doc,f"//pds:DD_Association[pds:identifier_reference='{local_id}'][pds:minimum_occurrences > 0]")
             if not required_by:
                 self.report(element, f"{attribute_name} is nillable, but is not required by any element", "ERROR")
 
@@ -89,13 +89,20 @@ class Enforcer:
         if isElement == "true":
             element_name = self.get_text(element, "pds:name")
             local_id = self.get_text(element, "pds:local_identifier")
-            containers = self.doc.xpath(f"//pds:DD_Association[pds:identifier_reference='{local_id}']", namespaces=NSMAP)
+            containers = self.get_elements(self.doc, f"//pds:DD_Association[pds:identifier_reference='{local_id}']")
             if containers:
                 self.report(element, f"{element_name} is an element, but is contained by another class", "ERROR")
 
     def get_text(self, element, path, defaultValue=None):
-        elements = element.xpath(path, namespaces=NSMAP)
-        return elements[0].text if elements else defaultValue
+        element = self.get_element(element, path)
+        return element.text if element is not None else defaultValue
+
+    def get_element(self, element, path):
+        elements = element.xpath(path, namespaces=self.nsmap)
+        return elements[0] if len(elements) else None
+
+    def get_elements(self, element, path):
+        return element.xpath(path, namespaces=self.nsmap)
 
     def report(self, element, message, severity='WARNING'):
         print (f'{severity} - File: {self.filename}, Line: {element.sourceline}, {message}')
