@@ -19,8 +19,9 @@ class Enforcer:
     def __init__(self, filename, nsmap):
         print (f"Checking {filename}")
         self.doc = doc = etree.parse(filename)
-        self.filename = os.path.basename(filename)
+        self.filename = filename
         self.nsmap = nsmap
+        self.ns = self.get_text(self.doc, "//pds:namespace_id")
 
     def apply_rules(self):
         self.apply_rule("//pds:DD_Association/pds:identifier_reference", [self.restrict_pds_references, self.restrict_ns_references])
@@ -29,7 +30,7 @@ class Enforcer:
         self.apply_rule("//pds:DD_Permissible_Value/pds:value", [self.title_case])
         self.apply_rule("//pds:DD_Attribute", [self.require_value_list_for_types, self.nillables_must_be_required, self.attributes_should_be_referenced])
         self.apply_rule("//pds:DD_Class/pds:name", [self.reserve_names])
-        self.apply_rule("//pds:DD_Class", [self.elements_cannot_be_contained, self.nonelements_should_be_referenced])
+        self.apply_rule("//pds:DD_Class", [self.elements_cannot_be_contained, self.nonelements_should_be_referenced, self.local_internal_reference_should_have_type, self.internal_reference_should_have_type])
 
 
     def apply_rule(self, path, rules):
@@ -56,9 +57,9 @@ class Enforcer:
         value = element.text
         tokens = value.split(".")
         if len(tokens) > 1:
-            thisns = self.get_text(self.doc, "//pds:namespace_id")
+            self.ns = self.get_text(self.doc, "//pds:namespace_id")
             ns = tokens[0]
-            if not ns in [thisns, "pds"]:
+            if not ns in [self.ns, "pds"]:
                 self.report(element, f"Association '{value}' may be an external namespace reference", "external-namespace-reference")
 
 
@@ -118,6 +119,28 @@ class Enforcer:
             containers = self.get_elements(self.doc, f"//pds:DD_Association[pds:identifier_reference='{local_id}']")
             if not containers:
                 self.report(element, f"Class '{element_name}' is an not element, but is never used", "unused-non-element")
+
+    def local_internal_reference_should_have_type(self, element):
+        internal_reference = self.get_element(element, "pds:DD_Association[pds:identifier_reference='pds.Local_Internal_Reference']")
+        if internal_reference is not None:
+            element_name = self.get_text(element, "pds:name")
+            local_id = self.get_text(element, "pds:local_identifier")
+            contexts = self.get_elements(element, "//pds:DD_Rule/pds:rule_context")
+            target_context = f"{self.ns}:{element_name}/pds:Local_Internal_Reference"
+            if not any(target_context in context.text for context in contexts):
+                self.report(element, f"Class '{element_name}' contains a Local_Internal_Reference, but has no type list", "local-internal-reference-type-list", "ERROR")
+
+    def internal_reference_should_have_type(self, element):
+        internal_reference = self.get_element(element, "pds:DD_Association[pds:identifier_reference='pds.Internal_Reference']")
+        if internal_reference is not None:
+            element_name = self.get_text(element, "pds:name")
+            local_id = self.get_text(element, "pds:local_identifier")
+            #print (f"{element_name} has an Internal_Reference...")
+            contexts = self.get_elements(element, "//pds:DD_Rule/pds:rule_context")
+            #print ([context.text for context in contexts])
+            target_context = f"{self.ns}:{element_name}/pds:Internal_Reference"
+            if not any(target_context in context.text in context.text for context in contexts):
+                self.report(element, f"Class '{element_name}' contains an Internal_Reference, but has no type list", "internal-reference-type-list", "ERROR")
 
     def get_text(self, element, path, defaultValue=None):
         element = self.get_element(element, path)
