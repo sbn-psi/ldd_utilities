@@ -1,6 +1,6 @@
 # LDDPreflight
 
-This is a supplemental checker that finds LDD problems not known to be currently caught by validate or LDDTool.
+This is a supplemental checker that finds LDD problems not known to be currently caught by validate. Some of the problems may also be caught by LDDTool, but this is still useful for quickly checking for those problems before trying to run LDDTool.
 
 The following checks are currently enforced (approximately). Some are enforced better than others, but each one should be reasonably accurate:
 
