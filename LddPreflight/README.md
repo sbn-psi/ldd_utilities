@@ -2,7 +2,7 @@
 
 This is a supplemental checker that finds LDD problems not currently caught by validate or LDDTool.
 
-The following checks are currently enforced (approximately). Some are enforced better than others, but each one should be reasonable accurate:
+The following checks are currently enforced (approximately). Some are enforced better than others, but each one should be reasonably accurate:
 
 * Standards Reference
   * 6E.3.1 Enumerated Attribute Values 
