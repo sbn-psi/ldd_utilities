@@ -192,7 +192,7 @@ class Enforcer:
         return element.xpath(path, namespaces=self.nsmap)
 
     def report(self, element, message, type, severity='WARNING'):
-        print (f'{severity} - File: {os.path.basename(self.filename)}, Line: {element.sourceline}, [{type}], Message: {message}')
+        print (f'File: {os.path.basename(self.filename)}, Line: {element.sourceline}, [{type}], {severity}: {message}')
 
 if __name__ == '__main__':
     main()
