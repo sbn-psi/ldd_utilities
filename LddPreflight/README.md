@@ -1,6 +1,6 @@
 # LDDPreflight
 
-This is a supplemental checker that finds LDD problems not currently caught by validate or LDDTool.
+This is a supplemental checker that finds LDD problems not known to be currently caught by validate or LDDTool.
 
 The following checks are currently enforced (approximately). Some are enforced better than others, but each one should be reasonably accurate:
 
@@ -21,3 +21,5 @@ The following checks are currently enforced (approximately). Some are enforced b
 * Extra Rules
   * Every non-element class should be referenced by another class
   * Every attribute should be referenced by at least one class.
+  * With limited exceptions, the PDS namespace should not be referenced.
+  * External namespaces should not be referenced.
