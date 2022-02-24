@@ -1,0 +1,1 @@
+namespace,# classes,#elements,#attributes,# rules,# pds namespace refs,# choices,avg associations/class,avg components/class,avg attributes/class
