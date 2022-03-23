@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/survey/v1/PDS4_SURVEY_1A00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:survey="http://pds.nasa.gov/pds4/survey/v1">
+<!--  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd
+                      http://pds.nasa.gov/pds4/survey/v1 https://pds.nasa.gov/pds4/mission/survey/v1/PDS4_SURVEY_1A00_1000.xsd">-->
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:survey-example:data:{{ product_id }}</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Survey Example</title>
+    <information_model_version>[IM_VERSION]</information_model_version>
+    <product_class>Product_Observational</product_class>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2020-07-14T04:15:29.414Z</start_date_time>
+      <stop_date_time>2020-07-14T04:15:59.414Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Derived</processing_level>
+      <Science_Facets>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Physical Properties</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Other Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>10K x 10K CCD detector</name>
+        <type>Instrument</type>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Multiple</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Discipline_Area>
+        {{ snippets.survey }}
+    </Discipline_Area>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>pass1.fit</file_name>
+      <local_identifier>file</local_identifier>
+      <creation_date_time>2020-07-22T09:04:19.000Z</creation_date_time>
+      <file_size unit="byte">9558720</file_size>
+    </File>
+    <Header>
+      <name>FITS File Header</name>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 3.0</parsing_standard_id>
+    </Header>
+    <Header>
+      <name>Field Header Card Header</name>
+      <offset unit="byte">2880</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 3.0</parsing_standard_id>
+    </Header>
+    <Table_Binary>
+      <name>Field Header Card</name>
+      <offset unit="byte">5760</offset>
+      <records>215</records>
+      <Record_Binary>
+        <fields>1</fields>
+        <groups>0</groups>
+        <record_length unit="byte">80</record_length>
+        <Field_Binary>
+          <name>record</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">80</field_length>
+          <description>An entry in the header card</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>Table header</name>
+      <offset unit="byte">23040</offset>
+      <object_length unit="byte">8640</object_length>
+      <parsing_standard_id>FITS 3.0</parsing_standard_id>
+      <description>The header for the table</description>
+    </Header>
+    <Table_Binary>
+      <local_identifier>table</local_identifier>
+      <offset unit="byte">31680</offset>
+      <records>25662</records>
+      <Record_Binary>
+        <fields>25</fields>
+        <groups>0</groups>
+        <record_length unit="byte">116</record_length>
+        <Field_Binary>
+          <name>NUMBER</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>SignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Running object number</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>EXT_NUMBER</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">5</field_location>
+          <data_type>SignedMSB2</data_type>
+          <field_length unit="byte">2</field_length>
+          <description>FITS extension number</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>XWIN_IMAGE</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">7</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>pixel</unit>
+          <description>Windowed position estimate along x</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>YWIN_IMAGE</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">15</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>pixel</unit>
+          <description>Windowed position estimate along y</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRAWIN_IMAGE</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">23</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel</unit>
+          <description>RMS windowed pos error along major axis</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRBWIN_IMAGE</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">27</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel</unit>
+          <description>RMS windowed pos error along minor axis</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>FLUX_AUTO</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">31</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>count</unit>
+          <description>Flux within a Kron-like elliptical aperture</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>FLUXERR_AUTO</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">35</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>count</unit>
+          <description>RMS error for AUTO flux</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRTHETAWIN_IMAGE</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">39</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>deg</unit>
+          <description>Windowed error ellipse pos angle (CCW/x)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>FLAGS</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">43</field_location>
+          <data_type>SignedMSB2</data_type>
+          <field_length unit="byte">2</field_length>
+          <description>Extraction flags</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>FLUX_RADIUS</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">45</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel</unit>
+          <description>Fraction-of-light radii</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>MAG_ISOCOR</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">49</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>mag</unit>
+          <description>Corrected isophotal limiting_magnitude</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>THETA_IMAGE</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">53</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>deg</unit>
+          <description>Position angle (CCW/x)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ELONGATION</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">57</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>A_IMAGE/B_IMAGE</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>FWHM_IMAGE</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">61</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel</unit>
+          <description>FWHM assuming a gaussian core</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>MU_MAX</name>
+          <field_number>16</field_number>
+          <field_location unit="byte">65</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>mag * arcsec**(-2)</unit>
+          <description>Peak surface brightness above background</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>MU_THRESHOLD</name>
+          <field_number>17</field_number>
+          <field_location unit="byte">69</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>mag * arcsec**(-2)</unit>
+          <description>Analysis threshold above background</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>FLUX_ISOCOR</name>
+          <field_number>18</field_number>
+          <field_location unit="byte">73</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>count</unit>
+          <description>Corrected isophotal flux</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ISOAREA_IMAGE</name>
+          <field_number>19</field_number>
+          <field_location unit="byte">77</field_location>
+          <data_type>SignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel**2</unit>
+          <description>Isophotal area above Analysis threshold</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRX2WIN_IMAGE</name>
+          <field_number>20</field_number>
+          <field_location unit="byte">81</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>pixel**2</unit>
+          <description>Variance of windowed pos along x</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRY2WIN_IMAGE</name>
+          <field_number>21</field_number>
+          <field_location unit="byte">89</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>pixel**2</unit>
+          <description>Variance of windowed pos along y</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRXYWIN_IMAGE</name>
+          <field_number>22</field_number>
+          <field_location unit="byte">97</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>pixel**2</unit>
+          <description>Covariance of windowed pos between x and y</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRCXXWIN_IMAGE</name>
+          <field_number>23</field_number>
+          <field_location unit="byte">105</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel**(-2)</unit>
+          <description>Cxx windowed error ellipse parameter</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRCYYWIN_IMAGE</name>
+          <field_number>24</field_number>
+          <field_location unit="byte">109</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel**(-2)</unit>
+          <description>Cyy windowed error ellipse parameter</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ERRCXYWIN_IMAGE</name>
+          <field_number>25</field_number>
+          <field_location unit="byte">113</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>pixel**(-2)</unit>
+          <description>Cxy windowed error ellipse parameter</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+  </File_Area_Observational>
+</Product_Observational>
