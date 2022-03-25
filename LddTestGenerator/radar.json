@@ -1,34 +1,46 @@
-[
-    {
-        "product_id": "range_resolution_and_depth_time_no_trigger",
-        "test_type": "VALID",
-        "template_file": "table_delimited.xml",
-        "snippet_files": {
-            "survey": "range_resolution_and_depth_time_no_trigger.txt"
-        }
+{
+    "namespaces": {
+        "pds": "http://pds.nasa.gov/pds4/pds/v1",
+        "radar": "http://pds.nasa.gov/pds4/radar/v1"
     },
-    {
-        "product_id": "range_resolution_and_depth_time_pass",
-        "test_type": "VALID",
-        "template_file": "table_delimited.xml",
-        "snippet_files": {
-            "survey": "range_resolution_and_depth_time_pass.txt"
+    "tests": [
+        {
+            "product_id": "range_resolution_and_depth_time_no_trigger",
+            "test_type": "VALID",
+            "template_file": "table_delimited.xml",
+            "snippet_files": {
+                "radar": "range_resolution_and_depth_time_no_trigger.txt"
+            }
+        },
+        {
+            "product_id": "range_resolution_and_depth_time_pass",
+            "test_type": "VALID",
+            "template_file": "table_delimited.xml",
+            "snippet_files": {
+                "radar": "range_resolution_and_depth_time_pass.txt"
+            }
+        },
+        {
+            "product_id": "range_resolution_and_depth_time_fail_no_range_resolution",
+            "test_type": "FAIL",
+            "template_file": "table_delimited.xml",
+            "snippet_files": {
+                "radar": "range_resolution_and_depth_time_pass.txt"
+            },
+            "mutations": [
+                {"xpath":"//radar:range_resolution_time", "operation":"delete"}
+            ]
+        },
+        {
+            "product_id": "range_resolution_and_depth_time_fail_wrong_units",
+            "test_type": "FAIL",
+            "template_file": "table_delimited.xml",
+            "snippet_files": {
+                "radar": "range_resolution_and_depth_time_pass.txt"
+            },
+            "mutations": [
+                {"xpath":"//radar:range_resolution_time", "operation":"changeUnit", "value":"min"}
+            ]
         }
-    },
-    {
-        "product_id": "range_resolution_and_depth_time_fail_no_range_resolution",
-        "test_type": "FAIL",
-        "template_file": "table_delimited.xml",
-        "snippet_files": {
-            "survey": "range_resolution_and_depth_time_fail_no_resolution.txt"
-        }
-    },
-    {
-        "product_id": "range_resolution_and_depth_time_fail_wrong_units",
-        "test_type": "FAIL",
-        "template_file": "table_delimited.xml",
-        "snippet_files": {
-            "survey": "range_resolution_and_depth_time_fail_wrong_units.txt"
-        }
-    }
-]
+    ]
+}
