@@ -7,7 +7,7 @@
         {
             "product_id": "range_resolution_and_depth_time_no_trigger",
             "test_type": "VALID",
-            "template_file": "table_delimited.xml",
+            "template_file": "table_delimited.xml.jinja",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_no_trigger.txt"
             }
@@ -15,7 +15,7 @@
         {
             "product_id": "range_resolution_and_depth_time_pass",
             "test_type": "VALID",
-            "template_file": "table_delimited.xml",
+            "template_file": "table_delimited.xml.jinja",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_pass.txt"
             }
@@ -23,7 +23,7 @@
         {
             "product_id": "range_resolution_and_depth_time_fail_no_range_resolution",
             "test_type": "FAIL",
-            "template_file": "table_delimited.xml",
+            "template_file": "table_delimited.xml.jinja",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_pass.txt"
             },
@@ -34,7 +34,7 @@
         {
             "product_id": "range_resolution_and_depth_time_fail_wrong_units",
             "test_type": "FAIL",
-            "template_file": "table_delimited.xml",
+            "template_file": "table_delimited.xml.jinja",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_pass.txt"
             },
