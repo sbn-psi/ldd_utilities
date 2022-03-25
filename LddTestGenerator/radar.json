@@ -13,12 +13,30 @@
             },
             "tests": [
                 {
-                    "id": "no_trigger",
+                    "id": "no_trigger_neither",
                     "test_type": "VALID",
-                    "description": "This test will not trigger the schematron rule, and should pass",
-                    "snippet_files": {
-                        "radar": "range_resolution_and_depth_time_no_trigger.txt"
-                    }
+                    "description": "This test will not trigger the schematron rule, since there is neither range_resolution nor range_depth, and should pass",
+                    "mutations": [
+                        {
+                            "xpath": "//radar:range_resolution_time",
+                            "operation": "delete"
+                        },
+                        {
+                            "xpath": "//radar:range_depth_time",
+                            "operation": "delete"
+                        }
+                    ]
+                },
+                {
+                    "id": "no_trigger_no_range_depth",
+                    "test_type": "VALID",
+                    "description": "This test will not trigger the schematron rule, since there is no range depth, and should pass",
+                    "mutations": [
+                        {
+                            "xpath": "//radar:range_depth_time",
+                            "operation": "delete"
+                        }
+                    ]
                 },
                 {
                     "id": "pass",

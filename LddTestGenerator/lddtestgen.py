@@ -5,6 +5,7 @@ import argparse
 import json
 import os
 import os.path
+import textwrap
 from io import BytesIO
 from xml.etree.ElementTree import ElementTree
 
@@ -41,8 +42,8 @@ def create_test(test, env, nsmap, snippet_dir, output_dir, suite={}):
     snippet_list = test.get("snippet_files", suite.get("snippet_files")).items()
     snippets = {name: load_snippet(filename, snippet_dir) for name, filename in snippet_list}
 
-    suite_description = suite.get("description", "")
-    test_description = test.get("description", "")
+    suite_description = "\n".join(textwrap.wrap(suite.get("description", "")))
+    test_description = "\n".join(textwrap.wrap(test.get("description", "")))
     suite_id = suite.get("id", "")
     test_id = test.get("id", "")
 
