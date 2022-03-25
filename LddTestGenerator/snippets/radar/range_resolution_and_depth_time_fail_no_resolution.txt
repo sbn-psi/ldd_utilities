@@ -1,0 +1,17 @@
+      <radar:Radar>
+        <radar:Groundbased_Radar>
+          <radar:observation_purpose>Doppler</radar:observation_purpose>
+          <radar:Transmitter_Properties>
+            <radar:range_resolution_time unit="s">1</radar:range_resolution_time>
+            <radar:tx_power>369.0</radar:tx_power>
+          </radar:Transmitter_Properties>
+          <radar:Modulation>
+            <radar:power_modulation>CW</radar:power_modulation>
+            <radar:waveform_modulation>Uncoded</radar:waveform_modulation>
+          </radar:Modulation>
+          <radar:Target_Properties>
+            <radar:roundtrip_lighttime unit="s">71.04</radar:roundtrip_lighttime>
+            <radar:range_depth_time unit="s">1</radar:range_depth_time>
+          </radar:Target_Properties>
+        </radar:Groundbased_Radar>
+      </radar:Radar>
