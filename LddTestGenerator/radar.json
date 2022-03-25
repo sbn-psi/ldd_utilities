@@ -8,6 +8,7 @@
             "product_id": "range_resolution_and_depth_time_no_trigger",
             "test_type": "VALID",
             "template_file": "table_delimited.xml.jinja",
+            "description": "This test will not trigger the schematron rule, and should pass",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_no_trigger.txt"
             }
@@ -16,6 +17,7 @@
             "product_id": "range_resolution_and_depth_time_pass",
             "test_type": "VALID",
             "template_file": "table_delimited.xml.jinja",
+            "description": "This test will trigger the schematron rule, but is valid, so it will pass",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_pass.txt"
             }
@@ -24,6 +26,7 @@
             "product_id": "range_resolution_and_depth_time_fail_no_range_resolution",
             "test_type": "FAIL",
             "template_file": "table_delimited.xml.jinja",
+            "description": "This test will trigger the schematron rule, and has no range resolution, so it will fail",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_pass.txt"
             },
@@ -35,6 +38,7 @@
             "product_id": "range_resolution_and_depth_time_fail_wrong_units",
             "test_type": "FAIL",
             "template_file": "table_delimited.xml.jinja",
+            "description": "This test will trigger the schematron rule, but the units for range resolution do not match the units for range depth, so it will fail",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_pass.txt"
             },

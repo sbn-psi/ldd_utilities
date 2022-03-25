@@ -33,7 +33,8 @@ def create_test(test, env, nsmap, snippet_dir, output_dir):
     
     template = env.get_template(test["template_file"])
     snippets = {name: load_snippet(filename, snippet_dir) for name, filename in test["snippet_files"].items()}
-    contents = template.render(product_id=test["product_id"], snippets=snippets)
+    description = test.get("description", "")
+    contents = template.render(product_id=test["product_id"], snippets=snippets, description=description)
     doc = apply_mutations(contents, test.get("mutations", []), nsmap)
 
     os.makedirs(output_dir, exist_ok=True)
