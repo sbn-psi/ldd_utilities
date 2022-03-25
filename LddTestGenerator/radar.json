@@ -68,5 +68,14 @@
                 }
             ]
         }
+    ],
+    "tests": [
+        {
+            "id": "minimum_groundbased",
+            "template_file": "table_delimited.xml.jinja",
+            "snippet_files": {"radar":"minimum_groundbased.txt"},
+            "description": "Contains the bare minimum required for groundbased observations",
+            "test_type": "VALID"
+        }
     ]
 }

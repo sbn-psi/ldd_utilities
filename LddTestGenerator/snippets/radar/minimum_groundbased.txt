@@ -1,0 +1,5 @@
+      <radar:Radar>
+        <radar:Groundbased_Radar>
+          <radar:observation_purpose>Doppler</radar:observation_purpose>
+        </radar:Groundbased_Radar>
+      </radar:Radar>
