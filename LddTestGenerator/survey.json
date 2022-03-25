@@ -5,7 +5,7 @@
     },
     "tests": [
         {
-            "product_id": "pass1",
+            "id": "pass1",
             "test_type": "VALID",
             "template_file": "binary_table.xml.jinja",
             "snippet_files": {
@@ -13,7 +13,7 @@
             }
         },
         {
-            "product_id": "pass2",
+            "id": "pass2",
             "test_type": "VALID",
             "template_file": "binary_table.xml.jinja",
             "snippet_files": {
@@ -21,7 +21,7 @@
             }
         },
         {
-            "product_id": "pass3",
+            "id": "pass3",
             "test_type": "VALID",
             "template_file": "binary_table.xml.jinja",
             "snippet_files": {
@@ -29,7 +29,7 @@
             }
         },
         {
-            "product_id": "pass4",
+            "id": "pass4",
             "test_type": "VALID",
             "template_file": "2d_image.xml.jinja",
             "snippet_files": {
@@ -37,7 +37,7 @@
             }
         },
         {
-            "product_id": "pass5",
+            "id": "pass5",
             "test_type": "VALID",
             "template_file": "2d_image.xml.jinja",
             "snippet_files": {
@@ -45,7 +45,7 @@
             }
         },
         {
-            "product_id": "schematron_survey_no_corners",
+            "id": "schematron_survey_no_corners",
             "test_type": "INVALID",
             "template_file": "binary_table.xml.jinja",
             "snippet_files": {

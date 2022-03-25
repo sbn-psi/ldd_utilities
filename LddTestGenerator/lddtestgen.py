@@ -23,22 +23,42 @@ def main():
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(args.template_dir))
 
     config = json.load(open(args.json_file))
-    tests = config["tests"]
-    nsmap = config["namespaces"]
+    tests = config.get("tests", [])
+    nsmap = config.get("namespaces", {})
+    suites = config.get("suites", [])
+
+    for suite in suites:
+        for test in suite["tests"]:
+            create_test(test, env, nsmap, args.snippet_dir, args.output_dir, suite=suite)
 
     for test in tests:
         create_test(test, env, nsmap, args.snippet_dir, args.output_dir)
 
-def create_test(test, env, nsmap, snippet_dir, output_dir):
+def create_test(test, env, nsmap, snippet_dir, output_dir, suite={}):
+    template_file = test.get("template_file", suite.get("template_file"))
+    template = env.get_template(template_file)
+
+    snippet_list = test.get("snippet_files", suite.get("snippet_files")).items()
+    snippets = {name: load_snippet(filename, snippet_dir) for name, filename in snippet_list}
+
+    suite_description = suite.get("description", "")
+    test_description = test.get("description", "")
+    suite_id = suite.get("id", "")
+    test_id = test.get("id", "")
+
+    product_id = "_".join(x["id"] for x in [suite, test] if "id" in x)
     
-    template = env.get_template(test["template_file"])
-    snippets = {name: load_snippet(filename, snippet_dir) for name, filename in test["snippet_files"].items()}
-    description = test.get("description", "")
-    contents = template.render(product_id=test["product_id"], snippets=snippets, description=description)
+    contents = template.render(
+        product_id=product_id, 
+        snippets=snippets, 
+        test_description=test_description, 
+        suite_description=suite_description,
+        test_id=test_id,
+        suite_id=suite_id)
     doc = apply_mutations(contents, test.get("mutations", []), nsmap)
 
     os.makedirs(output_dir, exist_ok=True)
-    filename = os.path.join(output_dir, f"{test['product_id']}_{test['test_type']}.xml")
+    filename = os.path.join(output_dir, f"{product_id}_{test['test_type']}.xml")
     doc.write(filename, encoding="utf-8", xml_declaration=True, pretty_print=True)
 
 

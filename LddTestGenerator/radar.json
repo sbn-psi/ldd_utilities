@@ -3,47 +3,51 @@
         "pds": "http://pds.nasa.gov/pds4/pds/v1",
         "radar": "http://pds.nasa.gov/pds4/radar/v1"
     },
-    "tests": [
+    "suites": [
         {
-            "product_id": "range_resolution_and_depth_time_no_trigger",
-            "test_type": "VALID",
+            "id": "range_resolution_and_depth_time",
+            "description": "Ensures that range_resolution_time and range_depth_time occur together correctly",
             "template_file": "table_delimited.xml.jinja",
-            "description": "This test will not trigger the schematron rule, and should pass",
-            "snippet_files": {
-                "radar": "range_resolution_and_depth_time_no_trigger.txt"
-            }
-        },
-        {
-            "product_id": "range_resolution_and_depth_time_pass",
-            "test_type": "VALID",
-            "template_file": "table_delimited.xml.jinja",
-            "description": "This test will trigger the schematron rule, but is valid, so it will pass",
-            "snippet_files": {
-                "radar": "range_resolution_and_depth_time_pass.txt"
-            }
-        },
-        {
-            "product_id": "range_resolution_and_depth_time_fail_no_range_resolution",
-            "test_type": "FAIL",
-            "template_file": "table_delimited.xml.jinja",
-            "description": "This test will trigger the schematron rule, and has no range resolution, so it will fail",
             "snippet_files": {
                 "radar": "range_resolution_and_depth_time_pass.txt"
             },
-            "mutations": [
-                {"xpath":"//radar:range_resolution_time", "operation":"delete"}
-            ]
-        },
-        {
-            "product_id": "range_resolution_and_depth_time_fail_wrong_units",
-            "test_type": "FAIL",
-            "template_file": "table_delimited.xml.jinja",
-            "description": "This test will trigger the schematron rule, but the units for range resolution do not match the units for range depth, so it will fail",
-            "snippet_files": {
-                "radar": "range_resolution_and_depth_time_pass.txt"
-            },
-            "mutations": [
-                {"xpath":"//radar:range_resolution_time", "operation":"changeUnit", "value":"min"}
+            "tests": [
+                {
+                    "id": "no_trigger",
+                    "test_type": "VALID",
+                    "description": "This test will not trigger the schematron rule, and should pass",
+                    "snippet_files": {
+                        "radar": "range_resolution_and_depth_time_no_trigger.txt"
+                    }
+                },
+                {
+                    "id": "pass",
+                    "test_type": "VALID",
+                    "description": "This test will trigger the schematron rule, but is valid, so it will pass"
+                },
+                {
+                    "id": "fail_no_range_resolution",
+                    "test_type": "FAIL",
+                    "description": "This test will trigger the schematron rule, and has no range resolution, so it will fail",
+                    "mutations": [
+                        {
+                            "xpath": "//radar:range_resolution_time",
+                            "operation": "delete"
+                        }
+                    ]
+                },
+                {
+                    "id": "fail_wrong_units",
+                    "test_type": "FAIL",
+                    "description": "This test will trigger the schematron rule, but the units for range resolution do not match the units for range depth, so it will fail",
+                    "mutations": [
+                        {
+                            "xpath": "//radar:range_resolution_time",
+                            "operation": "changeUnit",
+                            "value": "min"
+                        }
+                    ]
+                }
             ]
         }
     ]
