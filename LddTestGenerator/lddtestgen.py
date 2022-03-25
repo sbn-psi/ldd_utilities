@@ -55,7 +55,6 @@ def apply_mutation(doc:ElementTree, mutation, nsmap):
     xpath = mutation['xpath']
     operation = mutation['operation']
 
-    print (xpath)
     for e in doc.findall(xpath, nsmap):
         if operation == 'delete':
             e.getparent().remove(e)
