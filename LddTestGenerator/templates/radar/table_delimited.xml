@@ -4,7 +4,7 @@
  xmlns:radar="http://pds.nasa.gov/pds4/radar/v1"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Identification_Area>
-    <logical_identifier>urn:nasa:pds:ldd_radar_tests:data:valid1</logical_identifier>
+    <logical_identifier>urn:nasa:pds:radar-example:data:{{ product_id }}</logical_identifier>
     <version_id>1.0</version_id>
     <title>Phaethon CW 2018 Dec 15</title>
     <information_model_version>1.16.0.0</information_model_version>
