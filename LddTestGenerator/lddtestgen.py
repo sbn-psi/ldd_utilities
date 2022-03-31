@@ -87,21 +87,24 @@ class TestBuilder:
 
     def apply_mutation(self, doc:ElementTree, mutation, nsmap):
         xpath = mutation['xpath']
-        operation = mutation['operation']
+        operation = mutation['operation']        
 
         for e in doc.findall(xpath, nsmap):
-            if operation == 'delete':
-                self.addcomment(e, "Deleted element")
-                e.getparent().remove(e)
-            if operation == 'changeValue':
-                value = mutation["value"]
-                self.addcomment(e, f"Change value from '{e.text}' to '{value}'")
-                e.text = value
-            if operation == 'changeUnit':
-                value = mutation["value"]
-                oldvalue = e.attrib["unit"]
-                self.addcomment(e, f"Change unit from '{oldvalue}' to '{value}'")
-                e.attrib["unit"] = value
+            self.operate(e, operation, mutation)
+
+    def operate(self, e, operation, params):
+        if operation == 'delete':
+            self.addcomment(e, "Deleted element")
+            e.getparent().remove(e)
+        if operation == 'changeValue':
+            value = params["value"]
+            self.addcomment(e, f"Change value from '{e.text}' to '{value}'")
+            e.text = value
+        if operation == 'changeUnit':
+            value = params["value"]
+            oldvalue = e.attrib["unit"]
+            self.addcomment(e, f"Change unit from '{oldvalue}' to '{value}'")
+            e.attrib["unit"] = value
 
     def addcomment(self, e, message):
         e.getparent().append(etree.Comment(f"lddtestgen:: {e.tag}: {message}"))
