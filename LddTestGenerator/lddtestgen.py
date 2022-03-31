@@ -50,7 +50,7 @@ def create_test(test, env, nsmap, snippet_dir, output_dir, suite={}):
     suite_id = suite.get("id", "")
     test_id = test.get("id", "")
 
-    product_id = "_".join(x["id"] for x in [suite, test] if "id" in x)
+    product_id = "_".join(x for x in [suite_id, test_id] if x)
     
     contents = template.render(
         product_id=product_id, 
