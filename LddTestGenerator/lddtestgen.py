@@ -29,11 +29,14 @@ def main():
     suites = config.get("suites", [])
 
     for suite in suites:
-        for test in suite["tests"]:
-            create_test(test, env, nsmap, args.snippet_dir, args.output_dir, suite=suite)
+        create_suite(suite, env, nsmap, args.snippet_dir, args.output_dir)
 
     for test in tests:
         create_test(test, env, nsmap, args.snippet_dir, args.output_dir)
+
+def create_suite(suite, env, nsmap, snippet_dir, output_dir):
+    for test in suite["tests"]:
+        create_test(test, env, nsmap, snippet_dir, output_dir, suite=suite)
 
 def create_test(test, env, nsmap, snippet_dir, output_dir, suite={}):
     template_file = test.get("template_file", suite.get("template_file"))
@@ -79,13 +82,20 @@ def apply_mutation(doc:ElementTree, mutation, nsmap):
 
     for e in doc.findall(xpath, nsmap):
         if operation == 'delete':
+            addcomment(e, "Deleted element")
             e.getparent().remove(e)
         if operation == 'changeValue':
             value = mutation["value"]
+            addcomment(e, f"Change value from '{e.text}' to '{value}'")
             e.text = value
         if operation == 'changeUnit':
             value = mutation["value"]
+            oldvalue = e.attrib["unit"]
+            addcomment(e, f"Change unit from '{oldvalue}' to '{value}'")
             e.attrib["unit"] = value
+
+def addcomment(e, message):
+    e.getparent().append(etree.Comment(f"lddtestgen:: {e.tag}: {message}"))
 
 if __name__ == "__main__":
     sys.exit(main())
