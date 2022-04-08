@@ -24,7 +24,7 @@ def print_class(cls, doc):
 
     class_associations = findall(cls, "pds:DD_Association[pds:reference_type='component_of']")    
     for association in class_associations:
-        class_ids = [x.text for x in findall(association, "pds:identifier_reference") if "." not in x.text]
+        class_ids = [x.text for x in findall(association, "pds:identifier_reference") if is_usable_reference(x.text)]
         for class_id in class_ids:
             cls2 = find(doc, f"//pds:DD_Class[pds:local_identifier='{class_id}']")
             if cls2 is not None:
@@ -41,6 +41,9 @@ def print_class(cls, doc):
             attribute_def = element_text(find(attribute, "pds:definition"))
         
             print(f'{cls_name},{attribute_name},"{attribute_def}"')
+
+def is_usable_reference(reference):
+    return all(x not in reference for x in [".", "#"])
 
 def find(element, path):
     return element.find(path, namespaces=NSMAP)
