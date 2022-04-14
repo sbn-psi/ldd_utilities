@@ -3,7 +3,6 @@
 import argparse
 import os
 import re
-from xml.dom.expatbuilder import Namespaces
 from lxml import etree
 
 NSMAP = {"pds": "http://pds.nasa.gov/pds4/pds/v1"}
