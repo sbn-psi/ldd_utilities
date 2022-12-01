@@ -203,4 +203,22 @@
     <xsl:text>)</xsl:text>
     <xsl:text>&#10;</xsl:text>
   </xsl:template>
+
+  <xsl:template match="p:DD_Attribute_Extended" mode="extendedAttributeDef">
+    <xsl:param name="min_occurs"/>
+    <xsl:param name="max_occurs"/>
+    <xsl:text>  {field} </xsl:text>
+
+    <xsl:value-of select='p:local_identifier'/>
+    <xsl:text> -> </xsl:text>
+    <xsl:value-of select='p:Terminological_Entry/p:instance_id'/>
+
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select='$min_occurs'/>
+    <xsl:text>..</xsl:text>
+    <xsl:value-of select='$max_occurs'/>
+    <xsl:text>)</xsl:text>
+    <xsl:text>&#10;</xsl:text>
+  </xsl:template>
+
 </xsl:stylesheet>
