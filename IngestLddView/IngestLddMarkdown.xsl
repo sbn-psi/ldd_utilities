@@ -48,7 +48,7 @@
     <xsl:text>   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 &#10;</xsl:text>
     <xsl:text>      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.xsd&#10;</xsl:text>
     <xsl:text>      http://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1 &#10;</xsl:text>
-    <xsl:text>      https://pds.nasa.gov/pds4/nucspec/v1/</xsl:text><xsl:value-of select='replace($dictfile, ".xml", ".xsd")'/><xsl:text>"] &#10;</xsl:text>
+    <xsl:text>      https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1/</xsl:text><xsl:value-of select='replace($dictfile, ".xml", ".xsd")'/><xsl:text>"] &#10;</xsl:text>
     <xsl:text>```&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>This example assumes that the </xsl:text><xsl:value-of select="p:name"/><xsl:text> is the only dictionary in your label. If you have multiple dictionaries, you will need to make other modifications.&#10;</xsl:text>
