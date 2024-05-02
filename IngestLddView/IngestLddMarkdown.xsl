@@ -5,7 +5,7 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema-datatypes"
   exclude-result-prefixes="p"
 >
-  <xsl:output method="html" encoding="utf-8"/>
+  <xsl:output method="text" encoding="utf-8"/>
   <xsl:param name="ns"><xsl:value-of select="/p:Ingest_LDD/p:namespace_id"/></xsl:param>
   <xsl:param name="dictfile"/>
   <xsl:param name="imversion"/>
@@ -43,14 +43,14 @@
     <xsl:text>In order to use the schema file, the Product_Observational element of your product label will need to have references to the dictionary added to it, as follows:&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>```xml&#10;</xsl:text>
-    <xsl:text>[Product_Observational&#10;</xsl:text>
+    <xsl:text>&lt;Product_Observational&#10;</xsl:text>
     <xsl:text>   xmlns="http://pds.nasa.gov/pds4/pds/v1"&#10;</xsl:text>
     <xsl:text>   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&#10;</xsl:text>
     <xsl:text>   xmlns:</xsl:text><xsl:value-of select='$ns'/><xsl:text>="http://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1"&#10;</xsl:text>
     <xsl:text>   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 &#10;</xsl:text>
     <xsl:text>      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_</xsl:text><xsl:value-of select='$imversion'/><xsl:text>.xsd&#10;</xsl:text>
     <xsl:text>      http://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1 &#10;</xsl:text>
-    <xsl:text>      https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1/PDS4_</xsl:text><xsl:value-of select='upper-case($ns)'/><xsl:text>_</xsl:text><xsl:value-of select='$imversion'/><xsl:text>_</xsl:text><xsl:value-of select='$lddversion'/><xsl:text>.xsd"] &#10;</xsl:text>
+    <xsl:text>      https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1/PDS4_</xsl:text><xsl:value-of select='upper-case($ns)'/><xsl:text>_</xsl:text><xsl:value-of select='$imversion'/><xsl:text>_</xsl:text><xsl:value-of select='$lddversion'/><xsl:text>.xsd"&gt; &#10;</xsl:text>
     <xsl:text>```&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>This example assumes that the </xsl:text><xsl:value-of select="p:name"/><xsl:text> is the only dictionary in your label. If you have multiple dictionaries, you will need to make other modifications.&#10;</xsl:text>
@@ -60,9 +60,9 @@
     <xsl:text>In order to use the schematron file, the xml prolog of your product label will need to have references to the dictionary added to it, as follows:&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>```xml&#10;</xsl:text>
-    <xsl:text>[?xml-model &#10;</xsl:text>
+    <xsl:text>&#60;?xml-model &#10;</xsl:text>
     <xsl:text>    href="https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1/PDS4_</xsl:text><xsl:value-of select='upper-case($ns)'/><xsl:text>_</xsl:text><xsl:value-of select='$imversion'/><xsl:text>_</xsl:text><xsl:value-of select='$lddversion'/><xsl:text>.xsd" &#10;</xsl:text>
-    <xsl:text>    schematypens="http://purl.oclc.org/dsdl/schematron"?]&#10;</xsl:text>
+    <xsl:text>    schematypens="http://purl.oclc.org/dsdl/schematron"?&gt;&#10;</xsl:text>
     <xsl:text>````&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>### Including the data dictionary elements&#10;</xsl:text>
@@ -70,11 +70,11 @@
     <xsl:text>The data dictionary defines XML elements that can be used in a `Discipline_Area`. A minimal example of the discipline area follows:&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>```xml&#10;</xsl:text>
-    <xsl:text>[Discipline_Area]&#10;</xsl:text>
+    <xsl:text>&lt;Discipline_Area&gt;&#10;</xsl:text>
     <xsl:apply-templates select="p:DD_Class[p:element_flag='true']" mode='sample'>
       <xsl:with-param name='indent' select='"  "'/>
     </xsl:apply-templates>
-    <xsl:text>[/Discipline_Area]&#10;</xsl:text>
+    <xsl:text>&lt;/Discipline_Area&gt;&#10;</xsl:text>
     <xsl:text>```&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>## Organization of Classes and Attributes&#10;</xsl:text>
@@ -123,16 +123,16 @@
 
   <xsl:template match="p:DD_Class" mode="sample">
     <xsl:param name="indent"></xsl:param>
-    <xsl:value-of select="$indent"/><xsl:text>[</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>]&#10;</xsl:text>
+    <xsl:value-of select="$indent"/><xsl:text>&lt;</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>&gt;&#10;</xsl:text>
       <xsl:apply-templates select = 'p:DD_Association[p:minimum_occurrences > 0]' mode="sample">
         <xsl:with-param name="indent" select="$indent"/>
       </xsl:apply-templates>
-    <xsl:value-of select="$indent"/><xsl:text>[/</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>]&#10;</xsl:text>
+    <xsl:value-of select="$indent"/><xsl:text>&lt;/</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>&gt;&#10;</xsl:text>
   </xsl:template>
 
   <xsl:template match="p:DD_Attribute" mode="sample">
     <xsl:param name="indent">0</xsl:param>
-    <xsl:value-of select="$indent"/><xsl:text>[</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>]value[/</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>]&#10;</xsl:text>
+    <xsl:value-of select="$indent"/><xsl:text>&lt;</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>&gt;value&gt;/</xsl:text><xsl:value-of select='$ns'/><xsl:text>:</xsl:text><xsl:value-of select='p:name'/><xsl:text>&gt;&#10;</xsl:text>
   </xsl:template>
 
   <xsl:template match="p:DD_Association" mode="sample">
