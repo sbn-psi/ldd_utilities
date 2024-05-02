@@ -8,6 +8,8 @@
   <xsl:output method="html" encoding="utf-8"/>
   <xsl:param name="ns"><xsl:value-of select="/p:Ingest_LDD/p:namespace_id"/></xsl:param>
   <xsl:param name="dictfile"/>
+  <xsl:param name="imversion"/>
+  <xsl:param name="lddversion"/>
   
   <xsl:template match="/">
     <xsl:apply-templates select="p:Ingest_LDD"/>
@@ -46,9 +48,9 @@
     <xsl:text>   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&#10;</xsl:text>
     <xsl:text>   xmlns:</xsl:text><xsl:value-of select='$ns'/><xsl:text>="http://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1"&#10;</xsl:text>
     <xsl:text>   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 &#10;</xsl:text>
-    <xsl:text>      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.xsd&#10;</xsl:text>
+    <xsl:text>      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_</xsl:text><xsl:value-of select='$imversion'/><xsl:text>.xsd&#10;</xsl:text>
     <xsl:text>      http://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1 &#10;</xsl:text>
-    <xsl:text>      https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1/</xsl:text><xsl:value-of select='replace($dictfile, ".xml", ".xsd")'/><xsl:text>"] &#10;</xsl:text>
+    <xsl:text>      https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1/PDS4_</xsl:text><xsl:value-of select='upper-case($ns)'/><xsl:text>_</xsl:text><xsl:value-of select='$imversion'/><xsl:text>_</xsl:text><xsl:value-of select='$lddversion'/><xsl:text>.xsd"] &#10;</xsl:text>
     <xsl:text>```&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>This example assumes that the </xsl:text><xsl:value-of select="p:name"/><xsl:text> is the only dictionary in your label. If you have multiple dictionaries, you will need to make other modifications.&#10;</xsl:text>
@@ -59,7 +61,7 @@
     <xsl:text>&#10;</xsl:text>
     <xsl:text>```xml&#10;</xsl:text>
     <xsl:text>[?xml-model &#10;</xsl:text>
-    <xsl:text>    href="https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/>/v1/<xsl:value-of select='replace($dictfile, ".xml", ".sch")'/><xsl:text>" &#10;</xsl:text>
+    <xsl:text>    href="https://pds.nasa.gov/pds4/</xsl:text><xsl:value-of select='$ns'/><xsl:text>/v1/PDS4_</xsl:text><xsl:value-of select='upper-case($ns)'/><xsl:text>_</xsl:text><xsl:value-of select='$imversion'/><xsl:text>_</xsl:text><xsl:value-of select='$lddversion'/><xsl:text>.xsd" &#10;</xsl:text>
     <xsl:text>    schematypens="http://purl.oclc.org/dsdl/schematron"?]&#10;</xsl:text>
     <xsl:text>````&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
