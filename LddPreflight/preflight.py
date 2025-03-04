@@ -138,7 +138,7 @@ class Enforcer:
         if isElement == "true":
             element_name = self.get_text(element, "pds:name")
             local_id = self.get_text(element, "pds:local_identifier")
-            containers = self.get_elements(self.doc, f"//pds:DD_Association[pds:identifier_reference='{local_id}']")
+            containers = self.get_elements(self.doc, f"//pds:DD_Association[pds:identifier_reference='{local_id}' or pds:identifier_reference='{self.ns}.{local_id}']")
             if containers:
                 self.report(element, f"Class '{element_name} is an element, but is contained by another class", "element-contained-in-class", "ERROR")
 
@@ -150,7 +150,7 @@ class Enforcer:
         if isElement == "false":
             element_name = self.get_text(element, "pds:name")
             local_id = self.get_text(element, "pds:local_identifier")
-            containers = self.get_elements(self.doc, f"//pds:DD_Association[pds:identifier_reference='{local_id}']")
+            containers = self.get_elements(self.doc, f"//pds:DD_Association[pds:identifier_reference='{local_id}' or pds:identifier_reference='{self.ns}.{local_id}']")
             if not containers:
                 self.report(element, f"Class '{element_name}' is an not element, but is never used", "unused-non-element")
 
